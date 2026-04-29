@@ -303,27 +303,42 @@ function showResults() {
   const missed = state.results.filter((r) => !r.isCorrect);
   els.missedCount.textContent = missed.length;
   els.missedList.innerHTML = "";
-  missed.forEach((m) => {
+  missed.forEach((m, idx) => {
     const chosenArr = Array.isArray(m.chosen) ? m.chosen : [m.chosen];
-    const yourAnswer = chosenArr.length
+    const yourLines = chosenArr.length
       ? chosenArr
-          .map((l) => `${l}. ${letterText(m.question, l)}`)
-          .join(" + ")
-      : "(no answer)";
-    const correctAnswer = m.question.correct
-      .map((l) => `${l}. ${letterText(m.question, l)}`)
-      .join(" + ");
-    const item = document.createElement("div");
+          .map(
+            (l) => `<span class="answer-letter wrong">${l}</span>${escapeHtml(letterText(m.question, l))}`
+          )
+          .join("<br>")
+      : '<span class="answer-letter wrong">—</span>(no answer)';
+    const correctLines = m.question.correct
+      .map(
+        (l) => `<span class="answer-letter right">${l}</span>${escapeHtml(letterText(m.question, l))}`
+      )
+      .join("<br>");
+
+    const item = document.createElement("article");
     item.className = "missed-item";
     item.innerHTML = `
-      <h4>${escapeHtml(m.question.question)}</h4>
-      <div class="answers">
-        Your answer: <span class="wrong">${escapeHtml(yourAnswer)}</span>
+      <div class="missed-header">
+        <span class="missed-index">${idx + 1}</span>
+        <h4>${escapeHtml(m.question.question)}</h4>
       </div>
-      <div class="answers">
-        Correct answer: <span class="right">${escapeHtml(correctAnswer)}</span>
+      <div class="answer-grid">
+        <div class="answer-cell wrong-cell">
+          <div class="answer-label">Your answer</div>
+          <div class="answer-value">${yourLines}</div>
+        </div>
+        <div class="answer-cell right-cell">
+          <div class="answer-label">Correct answer</div>
+          <div class="answer-value">${correctLines}</div>
+        </div>
       </div>
-      <div class="why">${escapeHtml(m.question.explanation || "")}</div>
+      <div class="why">
+        <div class="why-label">Why?</div>
+        <div class="why-text">${escapeHtml(m.question.explanation || "")}</div>
+      </div>
     `;
     els.missedList.appendChild(item);
   });
@@ -350,20 +365,33 @@ function openModal({ title, body, confirmText = "Confirm", cancelText = "Cancel"
   els.modalConfirm.textContent = confirmText;
   els.modalCancel.textContent = cancelText;
   els.modalOverlay.classList.remove("hidden");
+  document.body.style.overflow = "hidden";
 
   const cleanup = () => {
     els.modalOverlay.classList.add("hidden");
+    document.body.style.overflow = "";
     els.modalConfirm.removeEventListener("click", confirmHandler);
     els.modalCancel.removeEventListener("click", cancelHandler);
     els.modalOverlay.removeEventListener("click", overlayHandler);
     document.removeEventListener("keydown", keyHandler);
   };
-  const confirmHandler = () => {
+  const confirmHandler = (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     cleanup();
-    onConfirm && onConfirm();
+    if (onConfirm) onConfirm();
   };
-  const cancelHandler = () => cleanup();
+  const cancelHandler = (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    cleanup();
+  };
   const overlayHandler = (e) => {
+    // Only dismiss when the *backdrop itself* is clicked, not the modal box.
     if (e.target === els.modalOverlay) cleanup();
   };
   const keyHandler = (e) => {
@@ -376,7 +404,15 @@ function openModal({ title, body, confirmText = "Confirm", cancelText = "Cancel"
   els.modalOverlay.addEventListener("click", overlayHandler);
   document.addEventListener("keydown", keyHandler);
 
-  setTimeout(() => els.modalConfirm.focus(), 50);
+  // iOS Safari sometimes throws when focusing inside a freshly-shown
+  // fixed-position element; swallow the error so it never blocks the modal.
+  setTimeout(() => {
+    try {
+      els.modalConfirm.focus({ preventScroll: true });
+    } catch (_) {
+      /* ignore */
+    }
+  }, 50);
 }
 
 function escapeHtml(text) {

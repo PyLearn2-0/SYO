@@ -102,9 +102,15 @@
         </div>
         <p id="result-verdict" class="verdict"></p>
 
-        <details class="review">
-          <summary>Review missed questions (<span id="missed-count">0</span>)</summary>
-          <div id="missed-list"></div>
+        <details class="review" id="review-section">
+          <summary>
+            <span class="review-summary-text">
+              Review missed questions
+              <span class="review-count" id="missed-count">0</span>
+            </span>
+            <span class="review-chevron" aria-hidden="true">›</span>
+          </summary>
+          <div id="missed-list" class="missed-list"></div>
         </details>
 
         <div class="quiz-actions center">

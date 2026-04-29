@@ -89,18 +89,18 @@
 
       <!-- Results screen -->
       <section id="results-screen" class="card hidden">
-        <h1>Quiz complete</h1>
-        <div class="score-row">
-          <div class="score-block">
-            <div class="score-num" id="result-score">0</div>
-            <div class="score-label">out of <span id="result-total">0</span></div>
-          </div>
-          <div class="score-block">
-            <div class="score-num" id="result-percent">0%</div>
-            <div class="score-label">final score</div>
-          </div>
+        <span class="results-eyebrow">Quiz complete</span>
+        <h1 class="results-headline">
+          You got <span id="result-score">0</span> of
+          <span id="result-total">0</span> correct.
+        </h1>
+        <div class="results-bar" aria-hidden="true">
+          <div class="results-bar-fill" id="result-bar-fill"></div>
         </div>
-        <p id="result-verdict" class="verdict"></p>
+        <p class="results-meta">
+          <span class="results-percent" id="result-percent">0%</span>
+          <span id="result-verdict"></span>
+        </p>
 
         <details class="review" id="review-section">
           <summary>

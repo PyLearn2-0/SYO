@@ -1,0 +1,112 @@
+---
+description: Always follow the Impeccable design skill when writing or modifying UI in this project.
+alwaysApply: true
+---
+
+# Use Impeccable for all UI work
+
+This project uses the [Impeccable](https://impeccable.style) design skill —
+installed locally at `.cursor/skills/impeccable/`. It exists to keep the AI
+from defaulting to AI-slop UI patterns.
+
+## Trigger
+
+Engage Impeccable any time you are about to:
+
+- create or modify HTML, CSS, JSX, TSX, Vue, Svelte, or any markup that
+  renders UI
+- restyle or reskin an existing surface
+- tweak typography, spacing, color, motion, or copy
+- add a new screen, component, modal, dialog, empty state, error state, or
+  setting
+- "just make this look nicer" / "polish this" / "make this more modern"
+
+If the request is purely backend or non-UI, ignore this rule.
+
+## Required preflight (do not skip)
+
+Before any UI edit, follow Impeccable's setup gates from
+`.cursor/skills/impeccable/SKILL.md`:
+
+1. **Load context.** Read `PRODUCT.md` and `DESIGN.md` at the project root.
+   They are the source of truth for register, users, tone, anti-references,
+   color tokens, typography, motion, and components.
+2. **Identify register.** This project's `PRODUCT.md` declares register
+   `product`. Apply `.cursor/skills/impeccable/reference/product.md`. Do not
+   apply `brand.md` rules unless explicitly redesigning a marketing surface.
+3. **Pick the right command.** When the user's request matches a command
+   (`polish`, `audit`, `bolder`, `quieter`, `clarify`, `adapt`, `animate`,
+   `colorize`, `delight`, `distill`, `harden`, `layout`, `optimize`,
+   `typeset`, `extract`, `critique`), follow that command's reference file
+   in `.cursor/skills/impeccable/reference/`.
+
+State Impeccable is in use in your response so the user can audit the
+choices.
+
+## Hard constraints (absolute bans)
+
+Refuse — and silently rewrite — any of these patterns when generating UI:
+
+- `background-clip: text` with a gradient (gradient text). Use weight + size
+  for emphasis instead.
+- The "hero-metric template" (huge number + tiny label + supporting stats +
+  decorative gradient). The results screen, dashboard headers, and stats
+  surfaces must avoid it.
+- Decorative `backdrop-filter: blur(...)` (glassmorphism as default).
+  Allowed only when it serves a real visual hierarchy purpose.
+- Side-stripe borders (`border-left`/`border-right` >1px as a colored
+  accent on cards / list items / alerts).
+- `#000` / `#fff` literals, or pure-saturation hex on neutrals. Use OKLCH;
+  tint every neutral toward the brand hue (`oklch(... 0.02-0.03 270)`).
+- `color: white` on text. Use `var(--text)` (a tinted near-white) or a
+  per-state OKLCH value for high-contrast chips.
+- Modals as the first instinct. Exhaust inline / progressive alternatives
+  before reaching for a dialog. Modals are reserved for destructive
+  confirmations.
+- Em dashes (`—`) and double hyphens (`--`) in copy. Use commas, colons,
+  semicolons, periods, or parentheses.
+- Identical-card grids of icon + heading + text repeated endlessly.
+
+## Color and typography
+
+- Use the OKLCH tokens defined in `:root` of `static/styles.css`. Do not
+  introduce new ad-hoc colors; if a new shade is needed, add it as a token
+  with an OKLCH value and document it in `DESIGN.md`.
+- One typeface family: `Inter, -apple-system, BlinkMacSystemFont, "Segoe
+  UI", system-ui, sans-serif`. No display fonts in product UI.
+- Fixed `rem` / `px` scale. No `clamp()`-driven fluid headlines.
+- Type ratio ≈ 1.2 between sizes; weight + size carry hierarchy.
+
+## Motion
+
+- 150ms for color/border transitions, 250ms for reveal/feedback, no longer.
+- Easing: `ease-out` only (`var(--ease)`, an ease-out-quart curve). No
+  bounce, no elastic.
+- Animate transforms and opacity. Never animate layout properties (`width`,
+  `height`, `padding`, `margin`, etc.) for state transitions. The results
+  bar's `width` animation is the documented exception because it represents
+  a value, not a state change.
+
+## Components
+
+- Every interactive element ships with: default, hover, focus-visible,
+  active, disabled. Don't ship without focus-visible.
+- Buttons ≥ 44px tall, `touch-action: manipulation`,
+  `-webkit-tap-highlight-color: transparent`.
+- Mobile (≤ 640px): primary action stacks full-width; modals get full-width
+  buttons; tap targets stay ≥ 44px.
+
+## Output discipline
+
+When you make UI changes, your final response must include:
+
+1. A one-line statement that Impeccable was applied and which register
+   you used (`product` for this project).
+2. A short list of the impeccable principles you applied or violations you
+   removed (e.g. "Replaced gradient text with weight contrast on the
+   results headline").
+3. A note if you intentionally bent a rule, with the reason.
+
+If `PRODUCT.md` or `DESIGN.md` is missing, ambiguous, or contradicted by
+the user's request, ask before guessing — never synthesize design intent
+from the prompt alone.

@@ -1,22 +1,27 @@
+/* Tokens follow DESIGN.md. OKLCH only - no #000/#fff. Neutrals are tinted
+   slightly toward the indigo brand hue (chroma ~0.02-0.03). */
 :root {
-  --bg: #0f172a;
-  --bg-soft: #111c34;
-  --surface: #172037;
-  --surface-2: #1e2a47;
-  --border: #29365a;
-  --text: #e2e8f0;
-  --text-muted: #94a3b8;
-  --accent: #6366f1;
-  --accent-strong: #818cf8;
-  --success: #22c55e;
-  --success-bg: #052e1a;
-  --error: #ef4444;
-  --error-bg: #2b0a0a;
-  --warning: #f59e0b;
+  --bg: oklch(0.18 0.02 270);
+  --bg-soft: oklch(0.21 0.022 270);
+  --surface: oklch(0.235 0.025 270);
+  --surface-2: oklch(0.27 0.028 270);
+  --border: oklch(0.32 0.03 270);
+  --text: oklch(0.97 0.004 270);
+  --text-muted: oklch(0.7 0.01 270);
+  --accent: oklch(0.65 0.16 280);
+  --accent-strong: oklch(0.74 0.14 280);
+  --accent-bg: oklch(0.27 0.04 280);
+  --success: oklch(0.7 0.17 145);
+  --success-bg: oklch(0.27 0.05 150);
+  --error: oklch(0.65 0.21 25);
+  --error-bg: oklch(0.28 0.07 25);
+  --warning: oklch(0.78 0.16 75);
   --radius: 14px;
-  --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  --shadow: 0 10px 30px -10px oklch(0 0 0 / 0.45);
+  --focus-ring: 0 0 0 3px oklch(0.65 0.16 280 / 0.45);
   --font: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text",
     "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1); /* ease-out-quart */
 }
 
 * {
@@ -27,9 +32,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: radial-gradient(1200px 800px at 20% -10%, #1d2a4d 0%, transparent 60%),
-    radial-gradient(900px 700px at 110% 10%, #2a1d4d 0%, transparent 55%),
-    var(--bg);
+  background: var(--bg);
   color: var(--text);
   font-family: var(--font);
   min-height: 100vh;
@@ -48,12 +51,11 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 18px 36px;
+  padding: 16px 28px;
   border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(8px);
   position: sticky;
   top: 0;
-  background: rgba(15, 23, 42, 0.7);
+  background: var(--bg);
   z-index: 5;
 }
 
@@ -66,13 +68,14 @@ body {
 }
 
 .brand-mark {
-  background: linear-gradient(135deg, var(--accent), #a855f7);
-  color: white;
-  padding: 6px 10px;
-  border-radius: 8px;
-  font-size: 13px;
-  letter-spacing: 0.05em;
+  background: var(--accent-bg);
+  color: var(--accent-strong);
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  letter-spacing: 0.06em;
   font-weight: 700;
+  border: 1px solid oklch(0.65 0.16 280 / 0.3);
 }
 
 .brand-name {
@@ -159,13 +162,14 @@ main {
 .slider-row output {
   font-weight: 600;
   font-variant-numeric: tabular-nums;
-  background: var(--accent);
-  color: white;
+  background: var(--accent-bg);
+  color: var(--accent-strong);
   padding: 4px 12px;
   border-radius: 8px;
   font-size: 14px;
   min-width: 38px;
   text-align: center;
+  border: 1px solid oklch(0.65 0.16 280 / 0.3);
 }
 
 .checkbox {
@@ -182,13 +186,19 @@ button {
   font-size: 15px;
   cursor: pointer;
   border-radius: 10px;
-  border: none;
+  border: 1px solid transparent;
   padding: 12px 22px;
   font-weight: 600;
   min-height: 44px;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-  transition: transform 0.05s ease, background 0.15s ease, opacity 0.15s ease;
+  transition: background 0.15s var(--ease), border-color 0.15s var(--ease),
+    color 0.15s var(--ease), opacity 0.15s var(--ease);
+}
+
+button:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
 }
 
 button:disabled {
@@ -197,13 +207,18 @@ button:disabled {
 }
 
 button.primary {
-  background: linear-gradient(135deg, var(--accent), #8b5cf6);
-  color: white;
-  box-shadow: 0 6px 18px -6px rgba(99, 102, 241, 0.7);
+  background: var(--accent);
+  color: var(--text);
+  border-color: var(--accent);
 }
 
 button.primary:not(:disabled):hover {
-  transform: translateY(-1px);
+  background: var(--accent-strong);
+  border-color: var(--accent-strong);
+}
+
+button.primary:not(:disabled):active {
+  background: oklch(0.58 0.16 280);
 }
 
 button.ghost {
@@ -215,6 +230,7 @@ button.ghost {
 button.ghost:hover {
   color: var(--text);
   background: var(--surface-2);
+  border-color: var(--accent-strong);
 }
 
 .question-meta {
@@ -262,7 +278,13 @@ button.ghost:hover {
 
 .option:hover:not(:disabled) {
   border-color: var(--accent-strong);
-  background: #1f2b4a;
+  background: oklch(0.29 0.035 275);
+}
+
+.option:focus-visible {
+  outline: none;
+  border-color: var(--accent-strong);
+  box-shadow: var(--focus-ring);
 }
 
 .option:disabled {
@@ -295,7 +317,7 @@ button.ghost:hover {
 
 .option.correct .letter {
   background: var(--success);
-  color: white;
+  color: oklch(0.15 0.04 150);
   border-color: var(--success);
 }
 
@@ -306,7 +328,7 @@ button.ghost:hover {
 
 .option.incorrect .letter {
   background: var(--error);
-  color: white;
+  color: oklch(0.99 0.01 25);
   border-color: var(--error);
 }
 
@@ -316,23 +338,23 @@ button.ghost:hover {
 
 .option.selected {
   border-color: var(--accent-strong);
-  background: #25315a;
+  background: var(--accent-bg);
 }
 
 .option.selected .letter {
   background: var(--accent);
-  color: white;
+  color: var(--text);
   border-color: var(--accent);
 }
 
 .option.missed {
   border-color: var(--warning);
-  background: rgba(245, 158, 11, 0.08);
+  background: oklch(0.78 0.16 75 / 0.08);
 }
 
 .option.missed .letter {
   background: var(--warning);
-  color: #1a1106;
+  color: oklch(0.18 0.04 75);
   border-color: var(--warning);
 }
 
@@ -340,7 +362,7 @@ button.ghost:hover {
   font-size: 13px;
   color: var(--accent-strong);
   font-weight: 600;
-  background: rgba(99, 102, 241, 0.12);
+  background: var(--accent-bg);
   padding: 3px 10px;
   border-radius: 999px;
   margin-left: 6px;
@@ -364,13 +386,12 @@ button.ghost:hover {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(7, 12, 26, 0.72);
-  backdrop-filter: blur(4px);
+  background: oklch(0.1 0.02 270 / 0.78);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 100;
-  animation: fadeIn 0.15s ease-out;
+  animation: fadeIn 0.15s var(--ease);
 }
 
 .modal {
@@ -434,14 +455,12 @@ button.ghost:hover {
 
 .feedback.correct {
   border-color: var(--success);
-  background: linear-gradient(180deg, rgba(34, 197, 94, 0.08), transparent 80%),
-    var(--surface-2);
+  background: oklch(0.27 0.05 150 / 0.35);
 }
 
 .feedback.incorrect {
   border-color: var(--error);
-  background: linear-gradient(180deg, rgba(239, 68, 68, 0.08), transparent 80%),
-    var(--surface-2);
+  background: oklch(0.28 0.07 25 / 0.35);
 }
 
 .feedback-header {
@@ -459,16 +478,18 @@ button.ghost:hover {
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  color: white;
+  color: var(--text);
   font-size: 16px;
 }
 
 .feedback.correct .feedback-icon {
   background: var(--success);
+  color: oklch(0.15 0.04 150);
 }
 
 .feedback.incorrect .feedback-icon {
   background: var(--error);
+  color: oklch(0.99 0.01 25);
 }
 
 .feedback-title {
@@ -502,42 +523,65 @@ button.ghost:hover {
   justify-content: center;
 }
 
-.score-row {
-  display: flex;
-  gap: 24px;
-  margin: 24px 0;
-}
-
-.score-block {
-  flex: 1;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 22px;
-  text-align: center;
-}
-
-.score-num {
-  font-size: 44px;
+.results-eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   font-weight: 700;
-  background: linear-gradient(135deg, var(--accent-strong), #c084fc);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  letter-spacing: -0.02em;
+  color: var(--accent-strong);
+  margin-bottom: 10px;
 }
 
-.score-label {
+.results-headline {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 18px;
+  line-height: 1.25;
+}
+
+.results-headline span {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.results-bar {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.results-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  border-radius: 999px;
+  transition: width 600ms var(--ease);
+}
+
+.results-bar-fill.passing {
+  background: var(--success);
+}
+
+.results-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0 0 28px;
+  flex-wrap: wrap;
   color: var(--text-muted);
-  font-size: 13px;
-  margin-top: 4px;
+  font-size: 14px;
+  line-height: 1.55;
 }
 
-.verdict {
-  text-align: center;
-  font-size: 16px;
-  margin: 4px 0 28px;
+.results-percent {
+  font-size: 17px;
+  font-weight: 700;
   color: var(--text);
+  font-variant-numeric: tabular-nums;
 }
 
 .review {
@@ -580,7 +624,7 @@ button.ghost:hover {
   padding: 0 8px;
   border-radius: 999px;
   background: var(--error);
-  color: white;
+  color: oklch(0.99 0.01 25);
   font-size: 13px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
@@ -632,7 +676,7 @@ button.ghost:hover {
   height: 26px;
   border-radius: 50%;
   background: var(--error);
-  color: white;
+  color: oklch(0.99 0.01 25);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -664,12 +708,12 @@ button.ghost:hover {
 
 .answer-cell.wrong-cell {
   background: var(--error-bg);
-  border-color: rgba(239, 68, 68, 0.4);
+  border-color: oklch(0.65 0.21 25 / 0.4);
 }
 
 .answer-cell.right-cell {
   background: var(--success-bg);
-  border-color: rgba(34, 197, 94, 0.4);
+  border-color: oklch(0.7 0.17 145 / 0.4);
 }
 
 .answer-label {
@@ -709,15 +753,16 @@ button.ghost:hover {
   font-weight: 700;
   margin-right: 8px;
   vertical-align: -3px;
-  color: white;
 }
 
 .answer-letter.wrong {
   background: var(--error);
+  color: oklch(0.99 0.01 25);
 }
 
 .answer-letter.right {
   background: var(--success);
+  color: oklch(0.15 0.04 150);
 }
 
 .why {

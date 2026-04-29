@@ -39,6 +39,7 @@ const els = {
   resultTotal: document.getElementById("result-total"),
   resultPercent: document.getElementById("result-percent"),
   resultVerdict: document.getElementById("result-verdict"),
+  resultBarFill: document.getElementById("result-bar-fill"),
   missedCount: document.getElementById("missed-count"),
   missedList: document.getElementById("missed-list"),
   restartBtn: document.getElementById("restart-btn"),
@@ -294,11 +295,21 @@ function updateStats() {
 function showResults() {
   const total = state.quiz.length;
   const score = state.correctCount;
-  const pct = Math.round((score / total) * 100);
+  const pct = total === 0 ? 0 : Math.round((score / total) * 100);
   els.resultScore.textContent = score;
   els.resultTotal.textContent = total;
   els.resultPercent.textContent = `${pct}%`;
   els.resultVerdict.textContent = verdictFor(pct);
+
+  // Animate the progress bar from 0 to pct after the screen is on-screen
+  // so the user sees the fill action as feedback.
+  els.resultBarFill.style.width = "0%";
+  els.resultBarFill.classList.toggle("passing", pct >= 70);
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      els.resultBarFill.style.width = `${pct}%`;
+    }, 80);
+  });
 
   const missed = state.results.filter((r) => !r.isCorrect);
   els.missedCount.textContent = missed.length;

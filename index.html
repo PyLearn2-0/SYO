@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CompTIA Security+ SY0-701 Practice Quiz</title>
+    <link rel="stylesheet" href="static/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">SY0-701</span>
+        <span class="brand-name">Security+ Practice Quiz</span>
+      </div>
+      <div id="session-stats" class="session-stats hidden">
+        <span><strong id="stat-progress">0 / 0</strong> answered</span>
+        <span><strong id="stat-correct">0</strong> correct</span>
+        <span id="stat-percent">0%</span>
+      </div>
+    </header>
+
+    <main id="app">
+      <!-- Setup screen -->
+      <section id="setup-screen" class="card setup">
+        <h1>Build your practice quiz</h1>
+        <p class="lead">
+          Choose how many questions you want, and we'll randomly draw them from a
+          pool of <strong id="pool-size">…</strong> SY0-701 questions. Each
+          answer gives instant feedback so you can learn as you go.
+        </p>
+
+        <div class="control">
+          <label for="quiz-size">Number of questions</label>
+          <div class="slider-row">
+            <input
+              type="range"
+              id="quiz-size"
+              min="60"
+              max="90"
+              step="1"
+              value="75"
+            />
+            <output id="quiz-size-value">75</output>
+          </div>
+        </div>
+
+        <div class="control">
+          <label class="checkbox">
+            <input type="checkbox" id="shuffle-options" checked />
+            <span>Shuffle answer choices within each question</span>
+          </label>
+        </div>
+
+        <button id="start-btn" class="primary" disabled>Start Quiz</button>
+        <p id="loading-msg" class="muted">Loading question bank…</p>
+      </section>
+
+      <!-- Quiz screen -->
+      <section id="quiz-screen" class="card hidden">
+        <div class="question-meta">
+          <span id="q-number">Question 1 of 75</span>
+          <span id="q-source" class="muted"></span>
+        </div>
+        <h2 id="q-text" class="question-text">…</h2>
+
+        <ul id="q-options" class="options"></ul>
+
+        <div id="q-feedback" class="feedback hidden">
+          <div class="feedback-header">
+            <span id="feedback-icon" class="feedback-icon">✓</span>
+            <span id="feedback-title" class="feedback-title">Correct!</span>
+          </div>
+          <div class="feedback-body">
+            <h3>Why?</h3>
+            <p id="feedback-explanation"></p>
+          </div>
+        </div>
+
+        <div class="quiz-actions">
+          <div class="action-group">
+            <button id="submit-btn" class="primary hidden">Submit</button>
+            <button id="next-btn" class="primary" disabled>Next question</button>
+          </div>
+          <button id="quit-btn" class="ghost">End quiz</button>
+        </div>
+      </section>
+
+      <!-- Results screen -->
+      <section id="results-screen" class="card hidden">
+        <h1>Quiz complete</h1>
+        <div class="score-row">
+          <div class="score-block">
+            <div class="score-num" id="result-score">0</div>
+            <div class="score-label">out of <span id="result-total">0</span></div>
+          </div>
+          <div class="score-block">
+            <div class="score-num" id="result-percent">0%</div>
+            <div class="score-label">final score</div>
+          </div>
+        </div>
+        <p id="result-verdict" class="verdict"></p>
+
+        <details class="review">
+          <summary>Review missed questions (<span id="missed-count">0</span>)</summary>
+          <div id="missed-list"></div>
+        </details>
+
+        <div class="quiz-actions center">
+          <button id="restart-btn" class="primary">Take a new quiz</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>Built locally · Questions sourced from public SY0-701 community dump</span>
+    </footer>
+
+    <script src="static/quiz.js"></script>
+  </body>
+</html>

@@ -46,8 +46,10 @@
 
         <div class="control">
           <label class="checkbox">
-            <input type="checkbox" id="shuffle-options" checked />
-            <span>Shuffle answer choices within each question</span>
+            <input type="checkbox" id="shuffle-options" />
+            <span>Shuffle answer choices within each question
+              <small class="hint">(off keeps explanations perfectly aligned with the displayed letters)</small>
+            </span>
           </label>
         </div>
 
@@ -114,6 +116,20 @@
     <footer class="footer">
       <span>Built locally · Questions sourced from public SY0-701 community dump</span>
     </footer>
+
+    <div id="modal-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal">
+        <h3 id="modal-title">End quiz?</h3>
+        <p id="modal-body" class="modal-body">
+          You'll see your results so far. The questions you haven't reached
+          will be skipped.
+        </p>
+        <div class="modal-actions">
+          <button id="modal-cancel" class="ghost">Keep going</button>
+          <button id="modal-confirm" class="primary">End quiz</button>
+        </div>
+      </div>
+    </div>
 
     <script src="static/quiz.js"></script>
   </body>

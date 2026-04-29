@@ -283,19 +283,24 @@ def main() -> None:
             block["options"],
             block["question"],
         )
-        correct_text = ", ".join(
-            f"{letter}. {block['options'].get(letter, '').strip()}"
-            for letter in block["correct"]
+        # Letter-agnostic correct text - the client appends the live letter
+        # so the message stays accurate even when answer choices are shuffled.
+        correct_text_only = " / ".join(
+            block["options"].get(letter, "").strip() for letter in block["correct"]
         )
         if not explanation:
             explanation = (
-                f"The correct answer is {correct_text}. "
+                f"The correct answer is: {correct_text_only}. "
                 "(No community explanation was captured for this question.)"
             )
-        elif len(explanation.strip()) < 40:
-            # Short comments like "D. Phishing" only restate the letter.
-            # Prepend the full correct answer text for context.
-            explanation = f"Correct answer: {correct_text}.\n\n{explanation.strip()}"
+        else:
+            # Strip a leading "X. " / "X) " / "X: " prefix - it would refer
+            # to the original PDF letter and would lie if options got shuffled.
+            explanation = re.sub(
+                r"^\s*[A-H][\.\):]\s*", "", explanation.strip()
+            )
+            if len(explanation) < 40:
+                explanation = f"Correct answer: {correct_text_only}.\n\n{explanation}"
         block["explanation"] = explanation
         block["id"] = f"T{block['topic']}-Q{block['number']}"
         questions.append(block)

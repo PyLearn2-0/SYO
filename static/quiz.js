@@ -47,6 +47,12 @@ const els = {
   statProgress: document.getElementById("stat-progress"),
   statCorrect: document.getElementById("stat-correct"),
   statPercent: document.getElementById("stat-percent"),
+
+  modalOverlay: document.getElementById("modal-overlay"),
+  modalTitle: document.getElementById("modal-title"),
+  modalBody: document.getElementById("modal-body"),
+  modalConfirm: document.getElementById("modal-confirm"),
+  modalCancel: document.getElementById("modal-cancel"),
 };
 
 function shuffle(arr) {
@@ -338,6 +344,41 @@ function verdictFor(pct) {
   return "Keep going — review the explanations below and try another randomized round.";
 }
 
+function openModal({ title, body, confirmText = "Confirm", cancelText = "Cancel", onConfirm }) {
+  els.modalTitle.textContent = title;
+  els.modalBody.textContent = body;
+  els.modalConfirm.textContent = confirmText;
+  els.modalCancel.textContent = cancelText;
+  els.modalOverlay.classList.remove("hidden");
+
+  const cleanup = () => {
+    els.modalOverlay.classList.add("hidden");
+    els.modalConfirm.removeEventListener("click", confirmHandler);
+    els.modalCancel.removeEventListener("click", cancelHandler);
+    els.modalOverlay.removeEventListener("click", overlayHandler);
+    document.removeEventListener("keydown", keyHandler);
+  };
+  const confirmHandler = () => {
+    cleanup();
+    onConfirm && onConfirm();
+  };
+  const cancelHandler = () => cleanup();
+  const overlayHandler = (e) => {
+    if (e.target === els.modalOverlay) cleanup();
+  };
+  const keyHandler = (e) => {
+    if (e.key === "Escape") cleanup();
+    if (e.key === "Enter") confirmHandler();
+  };
+
+  els.modalConfirm.addEventListener("click", confirmHandler);
+  els.modalCancel.addEventListener("click", cancelHandler);
+  els.modalOverlay.addEventListener("click", overlayHandler);
+  document.addEventListener("keydown", keyHandler);
+
+  setTimeout(() => els.modalConfirm.focus(), 50);
+}
+
 function escapeHtml(text) {
   return String(text)
     .replace(/&/g, "&amp;")
@@ -356,14 +397,26 @@ function init() {
   els.nextBtn.addEventListener("click", nextQuestion);
   els.quitBtn.addEventListener("click", () => {
     if (state.results.length === 0) {
-      els.sessionStats.classList.add("hidden");
-      show(els.setup);
+      openModal({
+        title: "Leave the quiz?",
+        body: "You haven't answered any questions yet. Going back will discard this quiz and return you to the setup screen.",
+        confirmText: "Back to setup",
+        cancelText: "Stay",
+        onConfirm: () => {
+          els.sessionStats.classList.add("hidden");
+          show(els.setup);
+        },
+      });
       return;
     }
-    if (confirm("End the quiz now and see your results?")) {
-      // Pad state so percentage reflects answered count.
-      showResults();
-    }
+    const remaining = state.quiz.length - state.results.length;
+    openModal({
+      title: "End quiz now?",
+      body: `You'll see your results so far. ${remaining} question${remaining === 1 ? "" : "s"} you haven't reached will be skipped.`,
+      confirmText: "End quiz",
+      cancelText: "Keep going",
+      onConfirm: () => showResults(),
+    });
   });
   els.restartBtn.addEventListener("click", () => {
     els.sessionStats.classList.add("hidden");

@@ -1,0 +1,1982 @@
+[
+  {
+    "id": "ACR-1",
+    "term": "2FA",
+    "full": "Two-factor Authentication",
+    "definition": "Authentication using exactly two distinct factors."
+  },
+  {
+    "id": "ACR-2",
+    "term": "3DES",
+    "full": "Triple Data Encryption Standard",
+    "definition": "Applies the DES cipher three times per block."
+  },
+  {
+    "id": "ACR-3",
+    "term": "AAA",
+    "full": "Authentication, Authorization, and Accounting",
+    "definition": "Verify identity, grant access, and log activity."
+  },
+  {
+    "id": "ACR-4",
+    "term": "ACL",
+    "full": "Access Control List",
+    "definition": "Ordered rules that permit or deny access."
+  },
+  {
+    "id": "ACR-5",
+    "term": "AES",
+    "full": "Advanced Encryption Standard",
+    "definition": "Strong symmetric block cipher."
+  },
+  {
+    "id": "ACR-6",
+    "term": "AES-256",
+    "full": "Advanced Encryption Standards 256-bit",
+    "definition": "AES using a 256-bit key."
+  },
+  {
+    "id": "ACR-7",
+    "term": "AH",
+    "full": "Authentication Header",
+    "definition": "IPSec piece giving integrity/authentication (no encryption)."
+  },
+  {
+    "id": "ACR-8",
+    "term": "AI",
+    "full": "Artificial Intelligence",
+    "definition": "Machines performing tasks that mimic human intelligence."
+  },
+  {
+    "id": "ACR-9",
+    "term": "AIS",
+    "full": "Automated Indicator Sharing",
+    "definition": "Real-time exchange of cyber threat indicators."
+  },
+  {
+    "id": "ACR-10",
+    "term": "ALE",
+    "full": "Annualized Loss Expectancy",
+    "definition": "Expected yearly loss: ARO x SLE."
+  },
+  {
+    "id": "ACR-11",
+    "term": "AP",
+    "full": "Access Point",
+    "definition": "Device providing wireless network connectivity."
+  },
+  {
+    "id": "ACR-12",
+    "term": "API",
+    "full": "Application Programming Interface",
+    "definition": "Defined interface for software to interact."
+  },
+  {
+    "id": "ACR-13",
+    "term": "APT",
+    "full": "Advanced Persistent Threat",
+    "definition": "Stealthy, well-resourced, long-term attacker."
+  },
+  {
+    "id": "ACR-14",
+    "term": "ARO",
+    "full": "Annualized Rate of Occurrence",
+    "definition": "Expected number of incidents per year."
+  },
+  {
+    "id": "ACR-15",
+    "term": "ARP",
+    "full": "Address Resolution Protocol",
+    "definition": "Maps IP addresses to MAC addresses on a LAN."
+  },
+  {
+    "id": "ACR-16",
+    "term": "ASLR",
+    "full": "Address Space Layout Randomization",
+    "definition": "Randomizes memory layout to thwart exploits."
+  },
+  {
+    "id": "ACR-17",
+    "term": "ATT&CK",
+    "full": "Adversarial Tactics, Techniques, and Common Knowledge",
+    "definition": "MITRE knowledge base of adversary behavior."
+  },
+  {
+    "id": "ACR-18",
+    "term": "AUP",
+    "full": "Acceptable Use Policy",
+    "definition": "Rules for acceptable use of systems and data."
+  },
+  {
+    "id": "ACR-19",
+    "term": "AV",
+    "full": "Antivirus",
+    "definition": "Software that detects and removes malware."
+  },
+  {
+    "id": "ACR-20",
+    "term": "BASH",
+    "full": "Bourne Again Shell",
+    "definition": "Common Unix/Linux command shell."
+  },
+  {
+    "id": "ACR-21",
+    "term": "BCP",
+    "full": "Business Continuity Planning",
+    "definition": "Keeping critical operations running during disruption."
+  },
+  {
+    "id": "ACR-22",
+    "term": "BGP",
+    "full": "Border Gateway Protocol",
+    "definition": "Routing protocol between internet autonomous systems."
+  },
+  {
+    "id": "ACR-23",
+    "term": "BIA",
+    "full": "Business Impact Analysis",
+    "definition": "Identifies critical functions and disruption impact."
+  },
+  {
+    "id": "ACR-24",
+    "term": "BIOS",
+    "full": "Basic Input/Output System",
+    "definition": "Firmware that initializes hardware at boot."
+  },
+  {
+    "id": "ACR-25",
+    "term": "BPA",
+    "full": "Business Partners Agreement",
+    "definition": "Contract defining partner roles and responsibilities."
+  },
+  {
+    "id": "ACR-26",
+    "term": "BPDU",
+    "full": "Bridge Protocol Data Unit",
+    "definition": "STP message switches use to prevent loops."
+  },
+  {
+    "id": "ACR-27",
+    "term": "BYOD",
+    "full": "Bring Your Own Device",
+    "definition": "Policy allowing personal devices for work."
+  },
+  {
+    "id": "ACR-28",
+    "term": "CA",
+    "full": "Certificate Authority",
+    "definition": "Trusted issuer of digital certificates."
+  },
+  {
+    "id": "ACR-29",
+    "term": "CAPTCHA",
+    "full": "Completely Automated Public Turing Test to Tell Computers and Humans Apart",
+    "definition": "Challenge that distinguishes humans from bots."
+  },
+  {
+    "id": "ACR-30",
+    "term": "CAR",
+    "full": "Corrective Action Report",
+    "definition": "Document of actions taken to fix an issue."
+  },
+  {
+    "id": "ACR-31",
+    "term": "CASB",
+    "full": "Cloud Access Security Broker",
+    "definition": "Policy enforcement point between users and cloud."
+  },
+  {
+    "id": "ACR-32",
+    "term": "CBC",
+    "full": "Cipher Block Chaining",
+    "definition": "Block cipher mode chaining blocks via XOR."
+  },
+  {
+    "id": "ACR-33",
+    "term": "CCMP",
+    "full": "Counter Mode/CBC-MAC Protocol",
+    "definition": "Encryption protocol used by WPA2."
+  },
+  {
+    "id": "ACR-34",
+    "term": "CCTV",
+    "full": "Closed-circuit Television",
+    "definition": "Video surveillance system."
+  },
+  {
+    "id": "ACR-35",
+    "term": "CERT",
+    "full": "Computer Emergency Response Team",
+    "definition": "Group that coordinates incident response."
+  },
+  {
+    "id": "ACR-36",
+    "term": "CFB",
+    "full": "Cipher Feedback",
+    "definition": "Block cipher mode that acts like a stream cipher."
+  },
+  {
+    "id": "ACR-37",
+    "term": "CHAP",
+    "full": "Challenge Handshake Authentication Protocol",
+    "definition": "Auth using a challenge/response hash."
+  },
+  {
+    "id": "ACR-38",
+    "term": "CIA",
+    "full": "Confidentiality, Integrity, Availability",
+    "definition": "The three core security goals."
+  },
+  {
+    "id": "ACR-39",
+    "term": "CIO",
+    "full": "Chief Information Officer",
+    "definition": "Executive over IT strategy."
+  },
+  {
+    "id": "ACR-40",
+    "term": "CIRT",
+    "full": "Computer Incident Response Team",
+    "definition": "Team that handles security incidents."
+  },
+  {
+    "id": "ACR-41",
+    "term": "CMS",
+    "full": "Content Management System",
+    "definition": "Software for creating/managing digital content."
+  },
+  {
+    "id": "ACR-42",
+    "term": "COBO",
+    "full": "Corporate-owned, Business-only",
+    "definition": "Company device restricted to business use."
+  },
+  {
+    "id": "ACR-43",
+    "term": "COOP",
+    "full": "Continuity of Operation Planning",
+    "definition": "Keeping essential functions going during emergencies."
+  },
+  {
+    "id": "ACR-44",
+    "term": "COPE",
+    "full": "Corporate Owned, Personally Enabled",
+    "definition": "Company device that also allows personal use."
+  },
+  {
+    "id": "ACR-45",
+    "term": "CP",
+    "full": "Contingency Planning",
+    "definition": "Planning for unexpected disruptive events."
+  },
+  {
+    "id": "ACR-46",
+    "term": "CRC",
+    "full": "Cyclical Redundancy Check",
+    "definition": "Error-detection code for data integrity."
+  },
+  {
+    "id": "ACR-47",
+    "term": "CRL",
+    "full": "Certificate Revocation List",
+    "definition": "List of certificates revoked before expiry."
+  },
+  {
+    "id": "ACR-48",
+    "term": "CSO",
+    "full": "Chief Security Officer",
+    "definition": "Executive over overall security."
+  },
+  {
+    "id": "ACR-49",
+    "term": "CSP",
+    "full": "Cloud Service Provider",
+    "definition": "Company that offers cloud services."
+  },
+  {
+    "id": "ACR-50",
+    "term": "CSR",
+    "full": "Certificate Signing Request",
+    "definition": "Request sent to a CA to obtain a certificate."
+  },
+  {
+    "id": "ACR-51",
+    "term": "CSRF",
+    "full": "Cross-site Request Forgery",
+    "definition": "Forces a user's browser into unwanted actions."
+  },
+  {
+    "id": "ACR-52",
+    "term": "CSU",
+    "full": "Channel Service Unit",
+    "definition": "Device connecting a network to a digital WAN line."
+  },
+  {
+    "id": "ACR-53",
+    "term": "CTM",
+    "full": "Counter Mode",
+    "definition": "Block cipher mode that acts like a stream cipher."
+  },
+  {
+    "id": "ACR-54",
+    "term": "CTO",
+    "full": "Chief Technology Officer",
+    "definition": "Executive over technology direction."
+  },
+  {
+    "id": "ACR-55",
+    "term": "CVE",
+    "full": "Common Vulnerability Enumeration",
+    "definition": "Public catalog of known vulnerabilities."
+  },
+  {
+    "id": "ACR-56",
+    "term": "CVSS",
+    "full": "Common Vulnerability Scoring System",
+    "definition": "0-10 severity score for vulnerabilities."
+  },
+  {
+    "id": "ACR-57",
+    "term": "CYOD",
+    "full": "Choose Your Own Device",
+    "definition": "Employees pick from approved devices."
+  },
+  {
+    "id": "ACR-58",
+    "term": "DAC",
+    "full": "Discretionary Access Control",
+    "definition": "Resource owner sets the access permissions."
+  },
+  {
+    "id": "ACR-59",
+    "term": "DBA",
+    "full": "Database Administrator",
+    "definition": "Person who manages databases."
+  },
+  {
+    "id": "ACR-60",
+    "term": "DDoS",
+    "full": "Distributed Denial of Service",
+    "definition": "Flood attack launched from many sources."
+  },
+  {
+    "id": "ACR-61",
+    "term": "DEP",
+    "full": "Data Execution Prevention",
+    "definition": "Marks memory non-executable to block exploits."
+  },
+  {
+    "id": "ACR-62",
+    "term": "DES",
+    "full": "Digital Encryption Standard",
+    "definition": "Legacy 56-bit symmetric cipher (weak)."
+  },
+  {
+    "id": "ACR-63",
+    "term": "DHCP",
+    "full": "Dynamic Host Configuration Protocol",
+    "definition": "Automatically assigns IP addresses."
+  },
+  {
+    "id": "ACR-64",
+    "term": "DHE",
+    "full": "Diffie-Hellman Ephemeral",
+    "definition": "Key exchange with per-session keys (forward secrecy)."
+  },
+  {
+    "id": "ACR-65",
+    "term": "DKIM",
+    "full": "DomainKeys Identified Mail",
+    "definition": "Signs email to verify the sending domain."
+  },
+  {
+    "id": "ACR-66",
+    "term": "DLL",
+    "full": "Dynamic Link Library",
+    "definition": "Shared library of reusable Windows code."
+  },
+  {
+    "id": "ACR-67",
+    "term": "DLP",
+    "full": "Data Loss Prevention",
+    "definition": "Blocks unauthorized data exfiltration."
+  },
+  {
+    "id": "ACR-68",
+    "term": "DMARC",
+    "full": "Domain Message Authentication Reporting and Conformance",
+    "definition": "Email policy built on SPF and DKIM."
+  },
+  {
+    "id": "ACR-69",
+    "term": "DNAT",
+    "full": "Destination Network Address Translation",
+    "definition": "Rewrites the destination IP in packets."
+  },
+  {
+    "id": "ACR-70",
+    "term": "DNS",
+    "full": "Domain Name System",
+    "definition": "Resolves domain names to IP addresses."
+  },
+  {
+    "id": "ACR-71",
+    "term": "DNSSEC",
+    "full": "Domain Name System Security Extensions",
+    "definition": "Adds authentication/integrity to DNS records."
+  },
+  {
+    "id": "ACR-72",
+    "term": "DoS",
+    "full": "Denial of Service",
+    "definition": "Attack that makes a resource unavailable."
+  },
+  {
+    "id": "ACR-73",
+    "term": "DPO",
+    "full": "Data Privacy Officer",
+    "definition": "Role overseeing data privacy compliance."
+  },
+  {
+    "id": "ACR-74",
+    "term": "DRP",
+    "full": "Disaster Recovery Plan",
+    "definition": "Plan to restore IT systems after a disaster."
+  },
+  {
+    "id": "ACR-75",
+    "term": "DSA",
+    "full": "Digital Signature Algorithm",
+    "definition": "Standard algorithm for digital signatures."
+  },
+  {
+    "id": "ACR-76",
+    "term": "DSL",
+    "full": "Digital Subscriber Line",
+    "definition": "Broadband internet over telephone lines."
+  },
+  {
+    "id": "ACR-77",
+    "term": "EAP",
+    "full": "Extensible Authentication Protocol",
+    "definition": "Authentication framework for network access."
+  },
+  {
+    "id": "ACR-78",
+    "term": "ECB",
+    "full": "Electronic Code Book",
+    "definition": "Simplest, insecure block cipher mode."
+  },
+  {
+    "id": "ACR-79",
+    "term": "ECC",
+    "full": "Elliptic Curve Cryptography",
+    "definition": "Efficient asymmetric crypto using elliptic curves."
+  },
+  {
+    "id": "ACR-80",
+    "term": "ECDHE",
+    "full": "Elliptic Curve Diffie-Hellman Ephemeral",
+    "definition": "ECC-based ephemeral key exchange."
+  },
+  {
+    "id": "ACR-81",
+    "term": "ECDSA",
+    "full": "Elliptic Curve Digital Signature Algorithm",
+    "definition": "ECC-based digital signatures."
+  },
+  {
+    "id": "ACR-82",
+    "term": "EDR",
+    "full": "Endpoint Detection and Response",
+    "definition": "Detects, investigates, and responds to endpoint threats."
+  },
+  {
+    "id": "ACR-83",
+    "term": "EFS",
+    "full": "Encrypted File System",
+    "definition": "Windows file-level encryption feature."
+  },
+  {
+    "id": "ACR-84",
+    "term": "ERP",
+    "full": "Enterprise Resource Planning",
+    "definition": "Integrated business management software."
+  },
+  {
+    "id": "ACR-85",
+    "term": "ESN",
+    "full": "Electronic Serial Number",
+    "definition": "Unique identifier for a mobile device."
+  },
+  {
+    "id": "ACR-86",
+    "term": "ESP",
+    "full": "Encapsulated Security Payload",
+    "definition": "IPSec piece giving encryption and integrity."
+  },
+  {
+    "id": "ACR-87",
+    "term": "EULA",
+    "full": "End User License Agreement",
+    "definition": "Legal terms for using software."
+  },
+  {
+    "id": "ACR-88",
+    "term": "FACL",
+    "full": "File System Access Control List",
+    "definition": "ACL applied to files and directories."
+  },
+  {
+    "id": "ACR-89",
+    "term": "FDE",
+    "full": "Full Disk Encryption",
+    "definition": "Encrypts an entire drive at rest."
+  },
+  {
+    "id": "ACR-90",
+    "term": "FIM",
+    "full": "File Integrity Management",
+    "definition": "Detects unauthorized changes to files."
+  },
+  {
+    "id": "ACR-91",
+    "term": "FPGA",
+    "full": "Field Programmable Gate Array",
+    "definition": "Reconfigurable hardware chip."
+  },
+  {
+    "id": "ACR-92",
+    "term": "FRR",
+    "full": "False Rejection Rate",
+    "definition": "Biometrics: rate of wrongly rejecting valid users."
+  },
+  {
+    "id": "ACR-93",
+    "term": "FTP",
+    "full": "File Transfer Protocol",
+    "definition": "Transfers files unencrypted (TCP 20/21)."
+  },
+  {
+    "id": "ACR-94",
+    "term": "FTPS",
+    "full": "Secured File Transfer Protocol",
+    "definition": "FTP secured with TLS/SSL."
+  },
+  {
+    "id": "ACR-95",
+    "term": "GCM",
+    "full": "Galois Counter Mode",
+    "definition": "Authenticated encryption block cipher mode."
+  },
+  {
+    "id": "ACR-96",
+    "term": "GDPR",
+    "full": "General Data Protection Regulation",
+    "definition": "EU data privacy and protection law."
+  },
+  {
+    "id": "ACR-97",
+    "term": "GPG",
+    "full": "Gnu Privacy Guard",
+    "definition": "Open-source OpenPGP encryption/signing tool."
+  },
+  {
+    "id": "ACR-98",
+    "term": "GPO",
+    "full": "Group Policy Object",
+    "definition": "Windows AD config and security settings."
+  },
+  {
+    "id": "ACR-99",
+    "term": "GPS",
+    "full": "Global Positioning System",
+    "definition": "Satellite-based location service."
+  },
+  {
+    "id": "ACR-100",
+    "term": "GPU",
+    "full": "Graphics Processing Unit",
+    "definition": "Processor for parallel/graphics workloads."
+  },
+  {
+    "id": "ACR-101",
+    "term": "GRE",
+    "full": "Generic Routing Encapsulation",
+    "definition": "Tunneling protocol that encapsulates packets."
+  },
+  {
+    "id": "ACR-102",
+    "term": "HA",
+    "full": "High Availability",
+    "definition": "Design that minimizes downtime."
+  },
+  {
+    "id": "ACR-103",
+    "term": "HDD",
+    "full": "Hard Disk Drive",
+    "definition": "Magnetic spinning storage device."
+  },
+  {
+    "id": "ACR-104",
+    "term": "HIDS",
+    "full": "Host-based Intrusion Detection System",
+    "definition": "IDS that runs on a single host."
+  },
+  {
+    "id": "ACR-105",
+    "term": "HIPS",
+    "full": "Host-based Intrusion Prevention System",
+    "definition": "IPS that runs on a single host."
+  },
+  {
+    "id": "ACR-106",
+    "term": "HMAC",
+    "full": "Hashed Message Authentication Code",
+    "definition": "Hash plus secret key for integrity and auth."
+  },
+  {
+    "id": "ACR-107",
+    "term": "HOTP",
+    "full": "HMAC-based One-time Password",
+    "definition": "One-time password derived from a counter."
+  },
+  {
+    "id": "ACR-108",
+    "term": "HSM",
+    "full": "Hardware Security Module",
+    "definition": "Dedicated device for secure key storage."
+  },
+  {
+    "id": "ACR-109",
+    "term": "HTML",
+    "full": "Hypertext Markup Language",
+    "definition": "Markup language for web pages."
+  },
+  {
+    "id": "ACR-110",
+    "term": "HTTP",
+    "full": "Hypertext Transfer Protocol",
+    "definition": "Web traffic over TCP 80 (unencrypted)."
+  },
+  {
+    "id": "ACR-111",
+    "term": "HTTPS",
+    "full": "Hypertext Transfer Protocol Secure",
+    "definition": "HTTP over TLS (TCP 443)."
+  },
+  {
+    "id": "ACR-112",
+    "term": "HVAC",
+    "full": "Heating, Ventilation, Air Conditioning",
+    "definition": "Environmental control system."
+  },
+  {
+    "id": "ACR-113",
+    "term": "IaaS",
+    "full": "Infrastructure as a Service",
+    "definition": "Cloud virtualized compute, storage, and network."
+  },
+  {
+    "id": "ACR-114",
+    "term": "IaC",
+    "full": "Infrastructure as Code",
+    "definition": "Managing infrastructure via code/config files."
+  },
+  {
+    "id": "ACR-115",
+    "term": "IAM",
+    "full": "Identity and Access Management",
+    "definition": "Managing digital identities and their access."
+  },
+  {
+    "id": "ACR-116",
+    "term": "ICMP",
+    "full": "Internet Control Message Protocol",
+    "definition": "Network diagnostics/error messaging (ping)."
+  },
+  {
+    "id": "ACR-117",
+    "term": "ICS",
+    "full": "Industrial Control Systems",
+    "definition": "Systems that control industrial processes."
+  },
+  {
+    "id": "ACR-118",
+    "term": "IDEA",
+    "full": "International Data Encryption Algorithm",
+    "definition": "Symmetric block cipher."
+  },
+  {
+    "id": "ACR-119",
+    "term": "IDF",
+    "full": "Intermediate Distribution Frame",
+    "definition": "Wiring closet linking to the main frame."
+  },
+  {
+    "id": "ACR-120",
+    "term": "IdP",
+    "full": "Identity Provider",
+    "definition": "Authenticates users and issues identity assertions."
+  },
+  {
+    "id": "ACR-121",
+    "term": "IDS",
+    "full": "Intrusion Detection System",
+    "definition": "Alerts on suspicious activity (detect only)."
+  },
+  {
+    "id": "ACR-122",
+    "term": "IEEE",
+    "full": "Institute of Electrical and Electronics Engineers",
+    "definition": "Standards body (e.g., 802.1X)."
+  },
+  {
+    "id": "ACR-123",
+    "term": "IKE",
+    "full": "Internet Key Exchange",
+    "definition": "Negotiates IPSec security associations."
+  },
+  {
+    "id": "ACR-124",
+    "term": "IM",
+    "full": "Instant Messaging",
+    "definition": "Real-time text communication."
+  },
+  {
+    "id": "ACR-125",
+    "term": "IMAP",
+    "full": "Internet Message Access Protocol",
+    "definition": "Retrieves email while keeping it on the server."
+  },
+  {
+    "id": "ACR-126",
+    "term": "IoC",
+    "full": "Indicators of Compromise",
+    "definition": "Forensic evidence of a breach."
+  },
+  {
+    "id": "ACR-127",
+    "term": "IoT",
+    "full": "Internet of Things",
+    "definition": "Networked smart/embedded devices."
+  },
+  {
+    "id": "ACR-128",
+    "term": "IP",
+    "full": "Internet Protocol",
+    "definition": "Addresses and routes packets across networks."
+  },
+  {
+    "id": "ACR-129",
+    "term": "IPS",
+    "full": "Intrusion Prevention System",
+    "definition": "Detects and blocks threats inline."
+  },
+  {
+    "id": "ACR-130",
+    "term": "IPSec",
+    "full": "Internet Protocol Security",
+    "definition": "Authenticates and encrypts IP packets."
+  },
+  {
+    "id": "ACR-131",
+    "term": "IR",
+    "full": "Incident Response",
+    "definition": "Process of handling security incidents."
+  },
+  {
+    "id": "ACR-132",
+    "term": "IRC",
+    "full": "Internet Relay Chat",
+    "definition": "Text chat protocol (often abused for C2)."
+  },
+  {
+    "id": "ACR-133",
+    "term": "IRP",
+    "full": "Incident Response Plan",
+    "definition": "Documented incident-handling procedures."
+  },
+  {
+    "id": "ACR-134",
+    "term": "ISO",
+    "full": "International Standards Organization",
+    "definition": "Publishes international standards."
+  },
+  {
+    "id": "ACR-135",
+    "term": "ISP",
+    "full": "Internet Service Provider",
+    "definition": "Company that provides internet access."
+  },
+  {
+    "id": "ACR-136",
+    "term": "ISSO",
+    "full": "Information Systems Security Officer",
+    "definition": "Role responsible for a system's security."
+  },
+  {
+    "id": "ACR-137",
+    "term": "IV",
+    "full": "Initialization Vector",
+    "definition": "Random value that seeds encryption."
+  },
+  {
+    "id": "ACR-138",
+    "term": "KDC",
+    "full": "Key Distribution Center",
+    "definition": "Kerberos component that issues tickets."
+  },
+  {
+    "id": "ACR-139",
+    "term": "KEK",
+    "full": "Key Encryption Key",
+    "definition": "Key used to encrypt other keys."
+  },
+  {
+    "id": "ACR-140",
+    "term": "L2TP",
+    "full": "Layer 2 Tunneling Protocol",
+    "definition": "VPN tunneling, often paired with IPSec."
+  },
+  {
+    "id": "ACR-141",
+    "term": "LAN",
+    "full": "Local Area Network",
+    "definition": "Network within a limited area."
+  },
+  {
+    "id": "ACR-142",
+    "term": "LDAP",
+    "full": "Lightweight Directory Access Protocol",
+    "definition": "Queries/modifies directory services."
+  },
+  {
+    "id": "ACR-143",
+    "term": "LEAP",
+    "full": "Lightweight Extensible Authentication Protocol",
+    "definition": "Cisco proprietary EAP (weak)."
+  },
+  {
+    "id": "ACR-144",
+    "term": "MaaS",
+    "full": "Monitoring as a Service",
+    "definition": "Cloud-delivered monitoring."
+  },
+  {
+    "id": "ACR-145",
+    "term": "MAC",
+    "full": "Mandatory / Media Access Control; Message Authentication Code",
+    "definition": "Label-based access model; a NIC hardware address; or an integrity code."
+  },
+  {
+    "id": "ACR-146",
+    "term": "MAN",
+    "full": "Metropolitan Area Network",
+    "definition": "Network spanning a city."
+  },
+  {
+    "id": "ACR-147",
+    "term": "MBR",
+    "full": "Master Boot Record",
+    "definition": "Boot sector containing partition information."
+  },
+  {
+    "id": "ACR-148",
+    "term": "MD5",
+    "full": "Message Digest 5",
+    "definition": "128-bit hash function (broken)."
+  },
+  {
+    "id": "ACR-149",
+    "term": "MDF",
+    "full": "Main Distribution Frame",
+    "definition": "Primary wiring termination point."
+  },
+  {
+    "id": "ACR-150",
+    "term": "MDM",
+    "full": "Mobile Device Management",
+    "definition": "Centralized control of mobile devices."
+  },
+  {
+    "id": "ACR-151",
+    "term": "MFA",
+    "full": "Multifactor Authentication",
+    "definition": "Auth using two or more factors."
+  },
+  {
+    "id": "ACR-152",
+    "term": "MFD",
+    "full": "Multifunction Device",
+    "definition": "Combined printer/scanner/copier."
+  },
+  {
+    "id": "ACR-153",
+    "term": "MFP",
+    "full": "Multifunction Printer",
+    "definition": "Printer with scan/copy/fax functions."
+  },
+  {
+    "id": "ACR-154",
+    "term": "ML",
+    "full": "Machine Learning",
+    "definition": "Systems that learn patterns from data."
+  },
+  {
+    "id": "ACR-155",
+    "term": "MMS",
+    "full": "Multimedia Message Service",
+    "definition": "Text messages that include media."
+  },
+  {
+    "id": "ACR-156",
+    "term": "MOA",
+    "full": "Memorandum of Agreement",
+    "definition": "Formal cooperative agreement between parties."
+  },
+  {
+    "id": "ACR-157",
+    "term": "MOU",
+    "full": "Memorandum of Understanding",
+    "definition": "Non-binding statement of mutual intent."
+  },
+  {
+    "id": "ACR-158",
+    "term": "MPLS",
+    "full": "Multi-protocol Label Switching",
+    "definition": "Label-based high-performance routing."
+  },
+  {
+    "id": "ACR-159",
+    "term": "MSA",
+    "full": "Master Service Agreement",
+    "definition": "Overarching contract for future work."
+  },
+  {
+    "id": "ACR-160",
+    "term": "MSCHAP",
+    "full": "Microsoft Challenge Handshake Authentication Protocol",
+    "definition": "Microsoft's CHAP variant."
+  },
+  {
+    "id": "ACR-161",
+    "term": "MSP",
+    "full": "Managed Service Provider",
+    "definition": "Outsourced IT management."
+  },
+  {
+    "id": "ACR-162",
+    "term": "MSSP",
+    "full": "Managed Security Service Provider",
+    "definition": "Outsourced security management."
+  },
+  {
+    "id": "ACR-163",
+    "term": "MTBF",
+    "full": "Mean Time Between Failures",
+    "definition": "Average time between repairable failures."
+  },
+  {
+    "id": "ACR-164",
+    "term": "MTTF",
+    "full": "Mean Time to Failure",
+    "definition": "Average lifespan of a non-repairable item."
+  },
+  {
+    "id": "ACR-165",
+    "term": "MTTR",
+    "full": "Mean Time to Recover",
+    "definition": "Average time to repair/restore a system."
+  },
+  {
+    "id": "ACR-166",
+    "term": "MTU",
+    "full": "Maximum Transmission Unit",
+    "definition": "Largest packet size allowed on a link."
+  },
+  {
+    "id": "ACR-167",
+    "term": "MX",
+    "full": "Mail Exchange",
+    "definition": "DNS record identifying mail servers."
+  },
+  {
+    "id": "ACR-168",
+    "term": "NAC",
+    "full": "Network Access Control",
+    "definition": "Enforces policy before devices join a network."
+  },
+  {
+    "id": "ACR-169",
+    "term": "NAT",
+    "full": "Network Address Translation",
+    "definition": "Maps private IP addresses to public ones."
+  },
+  {
+    "id": "ACR-170",
+    "term": "NDA",
+    "full": "Non-disclosure Agreement",
+    "definition": "Contract protecting confidential information."
+  },
+  {
+    "id": "ACR-171",
+    "term": "NFC",
+    "full": "Near Field Communication",
+    "definition": "Very short-range wireless communication."
+  },
+  {
+    "id": "ACR-172",
+    "term": "NGFW",
+    "full": "Next-generation Firewall",
+    "definition": "Firewall with deep inspection, app awareness, IPS."
+  },
+  {
+    "id": "ACR-173",
+    "term": "NIDS",
+    "full": "Network-based Intrusion Detection System",
+    "definition": "IDS monitoring network traffic."
+  },
+  {
+    "id": "ACR-174",
+    "term": "NIPS",
+    "full": "Network-based Intrusion Prevention System",
+    "definition": "IPS monitoring/blocking network traffic."
+  },
+  {
+    "id": "ACR-175",
+    "term": "NIST",
+    "full": "National Institute of Standards & Technology",
+    "definition": "US agency publishing security standards."
+  },
+  {
+    "id": "ACR-176",
+    "term": "NTFS",
+    "full": "New Technology File System",
+    "definition": "Windows file system with permissions."
+  },
+  {
+    "id": "ACR-177",
+    "term": "NTLM",
+    "full": "New Technology LAN Manager",
+    "definition": "Legacy Microsoft authentication protocol."
+  },
+  {
+    "id": "ACR-178",
+    "term": "NTP",
+    "full": "Network Time Protocol",
+    "definition": "Synchronizes clocks across devices."
+  },
+  {
+    "id": "ACR-179",
+    "term": "OAUTH",
+    "full": "Open Authorization",
+    "definition": "Token-based standard for delegated authorization."
+  },
+  {
+    "id": "ACR-180",
+    "term": "OCSP",
+    "full": "Online Certificate Status Protocol",
+    "definition": "Real-time check of certificate revocation."
+  },
+  {
+    "id": "ACR-181",
+    "term": "OID",
+    "full": "Object Identifier",
+    "definition": "Unique identifier within a hierarchy."
+  },
+  {
+    "id": "ACR-182",
+    "term": "OS",
+    "full": "Operating System",
+    "definition": "Software that manages hardware and runs apps."
+  },
+  {
+    "id": "ACR-183",
+    "term": "OSINT",
+    "full": "Open-source Intelligence",
+    "definition": "Intelligence gathered from public sources."
+  },
+  {
+    "id": "ACR-184",
+    "term": "OSPF",
+    "full": "Open Shortest Path First",
+    "definition": "Link-state interior routing protocol."
+  },
+  {
+    "id": "ACR-185",
+    "term": "OT",
+    "full": "Operational Technology",
+    "definition": "Systems controlling physical processes."
+  },
+  {
+    "id": "ACR-186",
+    "term": "OTA",
+    "full": "Over the Air",
+    "definition": "Wireless delivery of updates or configuration."
+  },
+  {
+    "id": "ACR-187",
+    "term": "OVAL",
+    "full": "Open Vulnerability Assessment Language",
+    "definition": "Standard for testing system security state."
+  },
+  {
+    "id": "ACR-188",
+    "term": "OWASP",
+    "full": "Open Worldwide Application Security Project",
+    "definition": "Web app security nonprofit (Top 10)."
+  },
+  {
+    "id": "ACR-189",
+    "term": "P12",
+    "full": "PKCS #12",
+    "definition": "Format bundling certificates and private keys."
+  },
+  {
+    "id": "ACR-190",
+    "term": "P2P",
+    "full": "Peer to Peer",
+    "definition": "Decentralized node-to-node networking."
+  },
+  {
+    "id": "ACR-191",
+    "term": "PaaS",
+    "full": "Platform as a Service",
+    "definition": "Cloud platform for building/running apps."
+  },
+  {
+    "id": "ACR-192",
+    "term": "PAC",
+    "full": "Proxy Auto Configuration",
+    "definition": "File defining proxy rules for browsers."
+  },
+  {
+    "id": "ACR-193",
+    "term": "PAM",
+    "full": "Privileged Access Management; Pluggable Authentication Modules",
+    "definition": "Controls privileged accounts; or a Linux auth framework."
+  },
+  {
+    "id": "ACR-194",
+    "term": "PAP",
+    "full": "Password Authentication Protocol",
+    "definition": "Sends credentials in cleartext (insecure)."
+  },
+  {
+    "id": "ACR-195",
+    "term": "PAT",
+    "full": "Port Address Translation",
+    "definition": "Maps many private IPs to one public IP via ports."
+  },
+  {
+    "id": "ACR-196",
+    "term": "PBKDF2",
+    "full": "Password-based Key Derivation Function 2",
+    "definition": "Key-stretching algorithm for passwords."
+  },
+  {
+    "id": "ACR-197",
+    "term": "PBX",
+    "full": "Private Branch Exchange",
+    "definition": "Internal telephone switching system."
+  },
+  {
+    "id": "ACR-198",
+    "term": "PCAP",
+    "full": "Packet Capture",
+    "definition": "Captured network traffic data/file."
+  },
+  {
+    "id": "ACR-199",
+    "term": "PCI DSS",
+    "full": "Payment Card Industry Data Security Standard",
+    "definition": "Standard for protecting cardholder data."
+  },
+  {
+    "id": "ACR-200",
+    "term": "PDU",
+    "full": "Power Distribution Unit",
+    "definition": "Distributes power to rack equipment."
+  },
+  {
+    "id": "ACR-201",
+    "term": "PEAP",
+    "full": "Protected Extensible Authentication Protocol",
+    "definition": "EAP wrapped in a protective TLS tunnel."
+  },
+  {
+    "id": "ACR-202",
+    "term": "PED",
+    "full": "Personal Electronic Device",
+    "definition": "Personal portable electronic device."
+  },
+  {
+    "id": "ACR-203",
+    "term": "PEM",
+    "full": "Privacy Enhanced Mail",
+    "definition": "Base64-encoded certificate/key format."
+  },
+  {
+    "id": "ACR-204",
+    "term": "PFS",
+    "full": "Perfect Forward Secrecy",
+    "definition": "Session keys stay safe even if a long-term key leaks."
+  },
+  {
+    "id": "ACR-205",
+    "term": "PGP",
+    "full": "Pretty Good Privacy",
+    "definition": "Encryption/signing for email and files."
+  },
+  {
+    "id": "ACR-206",
+    "term": "PHI",
+    "full": "Personal Health Information",
+    "definition": "Protected health data (HIPAA)."
+  },
+  {
+    "id": "ACR-207",
+    "term": "PII",
+    "full": "Personally Identifiable Information",
+    "definition": "Data that can identify an individual."
+  },
+  {
+    "id": "ACR-208",
+    "term": "PIV",
+    "full": "Personal Identity Verification",
+    "definition": "Smart-card standard for federal identity."
+  },
+  {
+    "id": "ACR-209",
+    "term": "PKCS",
+    "full": "Public Key Cryptography Standards",
+    "definition": "Standards governing public-key cryptography."
+  },
+  {
+    "id": "ACR-210",
+    "term": "PKI",
+    "full": "Public Key Infrastructure",
+    "definition": "CAs, keys, and certs that manage trust."
+  },
+  {
+    "id": "ACR-211",
+    "term": "POP",
+    "full": "Post Office Protocol",
+    "definition": "Downloads email from a server to a client."
+  },
+  {
+    "id": "ACR-212",
+    "term": "POTS",
+    "full": "Plain Old Telephone Service",
+    "definition": "Analog landline telephone service."
+  },
+  {
+    "id": "ACR-213",
+    "term": "PPP",
+    "full": "Point-to-Point Protocol",
+    "definition": "Data-link protocol for direct links."
+  },
+  {
+    "id": "ACR-214",
+    "term": "PPTP",
+    "full": "Point-to-Point Tunneling Protocol",
+    "definition": "Legacy VPN protocol (weak)."
+  },
+  {
+    "id": "ACR-215",
+    "term": "PSK",
+    "full": "Pre-shared Key",
+    "definition": "Shared secret used for authentication."
+  },
+  {
+    "id": "ACR-216",
+    "term": "PTZ",
+    "full": "Pan-tilt-zoom",
+    "definition": "Controllable surveillance camera."
+  },
+  {
+    "id": "ACR-217",
+    "term": "PUP",
+    "full": "Potentially Unwanted Program",
+    "definition": "Unwanted software often bundled with installs."
+  },
+  {
+    "id": "ACR-218",
+    "term": "RA",
+    "full": "Recovery Agent; Registration Authority",
+    "definition": "Recovers encrypted data; or verifies identity before a CA issues certs."
+  },
+  {
+    "id": "ACR-219",
+    "term": "RACE",
+    "full": "Research and Development in Advanced Communications Technologies in Europe",
+    "definition": "EU communications research program."
+  },
+  {
+    "id": "ACR-220",
+    "term": "RAD",
+    "full": "Rapid Application Development",
+    "definition": "Fast, iterative software development model."
+  },
+  {
+    "id": "ACR-221",
+    "term": "RADIUS",
+    "full": "Remote Authentication Dial-in User Service",
+    "definition": "Centralized AAA protocol for network access."
+  },
+  {
+    "id": "ACR-222",
+    "term": "RAID",
+    "full": "Redundant Array of Inexpensive Disks",
+    "definition": "Combines disks for redundancy/performance."
+  },
+  {
+    "id": "ACR-223",
+    "term": "RAS",
+    "full": "Remote Access Server",
+    "definition": "Provides remote connectivity into a network."
+  },
+  {
+    "id": "ACR-224",
+    "term": "RAT",
+    "full": "Remote Access Trojan",
+    "definition": "Malware granting remote control of a host."
+  },
+  {
+    "id": "ACR-225",
+    "term": "RBAC",
+    "full": "Role-based / Rule-based Access Control",
+    "definition": "Access by assigned role; or by defined rules."
+  },
+  {
+    "id": "ACR-226",
+    "term": "RC4",
+    "full": "Rivest Cipher version 4",
+    "definition": "Stream cipher, now insecure."
+  },
+  {
+    "id": "ACR-227",
+    "term": "RDP",
+    "full": "Remote Desktop Protocol",
+    "definition": "Remote graphical access (TCP 3389)."
+  },
+  {
+    "id": "ACR-228",
+    "term": "RFID",
+    "full": "Radio Frequency Identifier",
+    "definition": "Wireless tags for identification/tracking."
+  },
+  {
+    "id": "ACR-229",
+    "term": "RIPEMD",
+    "full": "RACE Integrity Primitives Evaluation Message Digest",
+    "definition": "A cryptographic hash function family."
+  },
+  {
+    "id": "ACR-230",
+    "term": "ROI",
+    "full": "Return on Investment",
+    "definition": "Financial gain relative to cost."
+  },
+  {
+    "id": "ACR-231",
+    "term": "RPO",
+    "full": "Recovery Point Objective",
+    "definition": "Maximum acceptable data loss, in time."
+  },
+  {
+    "id": "ACR-232",
+    "term": "RSA",
+    "full": "Rivest, Shamir, & Adleman",
+    "definition": "Widely used asymmetric encryption algorithm."
+  },
+  {
+    "id": "ACR-233",
+    "term": "RTBH",
+    "full": "Remotely Triggered Black Hole",
+    "definition": "Drops attack traffic using routing."
+  },
+  {
+    "id": "ACR-234",
+    "term": "RTO",
+    "full": "Recovery Time Objective",
+    "definition": "Target time to restore a service."
+  },
+  {
+    "id": "ACR-235",
+    "term": "RTOS",
+    "full": "Real-time Operating System",
+    "definition": "OS for deterministic, time-critical tasks."
+  },
+  {
+    "id": "ACR-236",
+    "term": "RTP",
+    "full": "Real-time Transport Protocol",
+    "definition": "Delivers audio/video streams over IP."
+  },
+  {
+    "id": "ACR-237",
+    "term": "S/MIME",
+    "full": "Secure/Multipurpose Internet Mail Extensions",
+    "definition": "Encrypts and signs email."
+  },
+  {
+    "id": "ACR-238",
+    "term": "SaaS",
+    "full": "Software as a Service",
+    "definition": "Cloud-delivered applications."
+  },
+  {
+    "id": "ACR-239",
+    "term": "SAE",
+    "full": "Simultaneous Authentication of Equals",
+    "definition": "WPA3's secure key-exchange handshake."
+  },
+  {
+    "id": "ACR-240",
+    "term": "SAML",
+    "full": "Security Assertions Markup Language",
+    "definition": "XML standard for SSO/federation."
+  },
+  {
+    "id": "ACR-241",
+    "term": "SAN",
+    "full": "Storage Area Network; Subject Alternative Name",
+    "definition": "Block-level storage network; or a cert field for extra names."
+  },
+  {
+    "id": "ACR-242",
+    "term": "SASE",
+    "full": "Secure Access Service Edge",
+    "definition": "Cloud model merging networking and security."
+  },
+  {
+    "id": "ACR-243",
+    "term": "SCADA",
+    "full": "Supervisory Control and Data Acquisition",
+    "definition": "ICS for industrial monitoring/control."
+  },
+  {
+    "id": "ACR-244",
+    "term": "SCAP",
+    "full": "Security Content Automation Protocol",
+    "definition": "Standards for automated security assessment."
+  },
+  {
+    "id": "ACR-245",
+    "term": "SCEP",
+    "full": "Simple Certificate Enrollment Protocol",
+    "definition": "Automates issuing certificates to devices."
+  },
+  {
+    "id": "ACR-246",
+    "term": "SD-WAN",
+    "full": "Software-defined Wide Area Network",
+    "definition": "Software-managed, flexible WAN."
+  },
+  {
+    "id": "ACR-247",
+    "term": "SDK",
+    "full": "Software Development Kit",
+    "definition": "Tools/libraries for building software."
+  },
+  {
+    "id": "ACR-248",
+    "term": "SDLC",
+    "full": "Software Development Lifecycle",
+    "definition": "Structured process for building software."
+  },
+  {
+    "id": "ACR-249",
+    "term": "SDLM",
+    "full": "Software Development Lifecycle Methodology",
+    "definition": "Methodology guiding the SDLC."
+  },
+  {
+    "id": "ACR-250",
+    "term": "SDN",
+    "full": "Software-defined Networking",
+    "definition": "Centralized, programmable network control."
+  },
+  {
+    "id": "ACR-251",
+    "term": "SED",
+    "full": "Self-encrypting Drives",
+    "definition": "Drives with built-in hardware encryption."
+  },
+  {
+    "id": "ACR-252",
+    "term": "SEH",
+    "full": "Structured Exception Handler",
+    "definition": "Windows exception handling (exploit target)."
+  },
+  {
+    "id": "ACR-253",
+    "term": "SELinux",
+    "full": "Security-enhanced Linux",
+    "definition": "Mandatory access control module for Linux."
+  },
+  {
+    "id": "ACR-254",
+    "term": "SFTP",
+    "full": "Secured File Transfer Protocol",
+    "definition": "File transfer tunneled over SSH."
+  },
+  {
+    "id": "ACR-255",
+    "term": "SHA",
+    "full": "Secure Hashing Algorithm",
+    "definition": "Family of cryptographic hash functions."
+  },
+  {
+    "id": "ACR-256",
+    "term": "SHTTP",
+    "full": "Secure Hypertext Transfer Protocol",
+    "definition": "Legacy secure HTTP (rarely used)."
+  },
+  {
+    "id": "ACR-257",
+    "term": "SIEM",
+    "full": "Security Information and Event Management",
+    "definition": "Central log collection, correlation, and alerting."
+  },
+  {
+    "id": "ACR-258",
+    "term": "SIM",
+    "full": "Subscriber Identity Module",
+    "definition": "Card identifying a mobile subscriber."
+  },
+  {
+    "id": "ACR-259",
+    "term": "SLA",
+    "full": "Service-level Agreement",
+    "definition": "Defines expected service levels and remedies."
+  },
+  {
+    "id": "ACR-260",
+    "term": "SLE",
+    "full": "Single Loss Expectancy",
+    "definition": "Loss from one incident: asset value x exposure factor."
+  },
+  {
+    "id": "ACR-261",
+    "term": "SMB",
+    "full": "Server Message Block",
+    "definition": "Windows file and printer sharing protocol."
+  },
+  {
+    "id": "ACR-262",
+    "term": "SMS",
+    "full": "Short Message Service",
+    "definition": "Text messaging; also used for OTP codes."
+  },
+  {
+    "id": "ACR-263",
+    "term": "SMTP",
+    "full": "Simple Mail Transfer Protocol",
+    "definition": "Sends email (TCP 25)."
+  },
+  {
+    "id": "ACR-264",
+    "term": "SMTPS",
+    "full": "Simple Mail Transfer Protocol Secure",
+    "definition": "SMTP secured with TLS."
+  },
+  {
+    "id": "ACR-265",
+    "term": "SNMP",
+    "full": "Simple Network Management Protocol",
+    "definition": "Monitors and manages network devices."
+  },
+  {
+    "id": "ACR-266",
+    "term": "SOAP",
+    "full": "Simple Object Access Protocol",
+    "definition": "XML-based web-service messaging."
+  },
+  {
+    "id": "ACR-267",
+    "term": "SOAR",
+    "full": "Security Orchestration, Automation, Response",
+    "definition": "Automates security workflows/playbooks."
+  },
+  {
+    "id": "ACR-268",
+    "term": "SoC",
+    "full": "System on Chip",
+    "definition": "All system components on one chip."
+  },
+  {
+    "id": "ACR-269",
+    "term": "SOC",
+    "full": "Security Operations Center",
+    "definition": "Team that monitors and defends systems."
+  },
+  {
+    "id": "ACR-270",
+    "term": "SOW",
+    "full": "Statement of Work",
+    "definition": "Defines project deliverables, scope, timelines."
+  },
+  {
+    "id": "ACR-271",
+    "term": "SPF",
+    "full": "Sender Policy Framework",
+    "definition": "DNS record of authorized mail servers."
+  },
+  {
+    "id": "ACR-272",
+    "term": "SPIM",
+    "full": "Spam over Internet Messaging",
+    "definition": "Spam delivered via instant messaging."
+  },
+  {
+    "id": "ACR-273",
+    "term": "SQL",
+    "full": "Structured Query Language",
+    "definition": "Language for relational databases."
+  },
+  {
+    "id": "ACR-274",
+    "term": "SQLi",
+    "full": "SQL Injection",
+    "definition": "Injecting malicious SQL into queries."
+  },
+  {
+    "id": "ACR-275",
+    "term": "SRTP",
+    "full": "Secure Real-Time Protocol",
+    "definition": "Encrypted RTP for voice/video."
+  },
+  {
+    "id": "ACR-276",
+    "term": "SSD",
+    "full": "Solid State Drive",
+    "definition": "Flash-based storage device."
+  },
+  {
+    "id": "ACR-277",
+    "term": "SSH",
+    "full": "Secure Shell",
+    "definition": "Encrypted remote admin/file transfer (TCP 22)."
+  },
+  {
+    "id": "ACR-278",
+    "term": "SSL",
+    "full": "Secure Sockets Layer",
+    "definition": "Deprecated predecessor to TLS."
+  },
+  {
+    "id": "ACR-279",
+    "term": "SSO",
+    "full": "Single Sign-on",
+    "definition": "One login grants access to multiple systems."
+  },
+  {
+    "id": "ACR-280",
+    "term": "STIX",
+    "full": "Structured Threat Information eXchange",
+    "definition": "Standard format for sharing threat intel."
+  },
+  {
+    "id": "ACR-281",
+    "term": "SWG",
+    "full": "Secure Web Gateway",
+    "definition": "Filters and inspects outbound web traffic."
+  },
+  {
+    "id": "ACR-282",
+    "term": "TACACS+",
+    "full": "Terminal Access Controller Access Control System",
+    "definition": "Cisco AAA protocol that separates AAA (TCP 49)."
+  },
+  {
+    "id": "ACR-283",
+    "term": "TAXII",
+    "full": "Trusted Automated eXchange of Indicator Information",
+    "definition": "Protocol for sharing threat intel (with STIX)."
+  },
+  {
+    "id": "ACR-284",
+    "term": "TCP/IP",
+    "full": "Transmission Control Protocol/Internet Protocol",
+    "definition": "Core protocol suite of the internet."
+  },
+  {
+    "id": "ACR-285",
+    "term": "TGT",
+    "full": "Ticket Granting Ticket",
+    "definition": "Kerberos ticket used to request service tickets."
+  },
+  {
+    "id": "ACR-286",
+    "term": "TKIP",
+    "full": "Temporal Key Integrity Protocol",
+    "definition": "Legacy WPA encryption (deprecated)."
+  },
+  {
+    "id": "ACR-287",
+    "term": "TLS",
+    "full": "Transport Layer Security",
+    "definition": "Encrypts and protects data in transit."
+  },
+  {
+    "id": "ACR-288",
+    "term": "TOC",
+    "full": "Time-of-check",
+    "definition": "When a condition is verified (TOCTOU race)."
+  },
+  {
+    "id": "ACR-289",
+    "term": "TOTP",
+    "full": "Time-based One-time Password",
+    "definition": "One-time password derived from the current time."
+  },
+  {
+    "id": "ACR-290",
+    "term": "TOU",
+    "full": "Time-of-use",
+    "definition": "When a resource is actually used (TOCTOU race)."
+  },
+  {
+    "id": "ACR-291",
+    "term": "TPM",
+    "full": "Trusted Platform Module",
+    "definition": "Chip storing keys for encryption/attestation."
+  },
+  {
+    "id": "ACR-292",
+    "term": "TSIG",
+    "full": "Transaction Signature",
+    "definition": "Authenticates DNS updates/transfers."
+  },
+  {
+    "id": "ACR-293",
+    "term": "TTP",
+    "full": "Tactics, Techniques, and Procedures",
+    "definition": "Patterns of behavior of a threat actor."
+  },
+  {
+    "id": "ACR-294",
+    "term": "UAT",
+    "full": "User Acceptance Testing",
+    "definition": "Final testing by end users before release."
+  },
+  {
+    "id": "ACR-295",
+    "term": "UAV",
+    "full": "Unmanned Aerial Vehicle",
+    "definition": "A drone."
+  },
+  {
+    "id": "ACR-296",
+    "term": "UBA",
+    "full": "User Behavior Analytics",
+    "definition": "Detects anomalies in user behavior."
+  },
+  {
+    "id": "ACR-297",
+    "term": "UDP",
+    "full": "User Datagram Protocol",
+    "definition": "Connectionless, fast transport protocol."
+  },
+  {
+    "id": "ACR-298",
+    "term": "UEFI",
+    "full": "Unified Extensible Firmware Interface",
+    "definition": "Modern firmware replacing legacy BIOS."
+  },
+  {
+    "id": "ACR-299",
+    "term": "UEM",
+    "full": "Unified Endpoint Management",
+    "definition": "Manages all endpoint types from one console."
+  },
+  {
+    "id": "ACR-300",
+    "term": "UPS",
+    "full": "Uninterruptible Power Supply",
+    "definition": "Battery backup that maintains power."
+  },
+  {
+    "id": "ACR-301",
+    "term": "URI",
+    "full": "Uniform Resource Identifier",
+    "definition": "String that identifies a resource."
+  },
+  {
+    "id": "ACR-302",
+    "term": "URL",
+    "full": "Universal Resource Locator",
+    "definition": "Web address locating a resource."
+  },
+  {
+    "id": "ACR-303",
+    "term": "USB",
+    "full": "Universal Serial Bus",
+    "definition": "Standard interface for connecting devices."
+  },
+  {
+    "id": "ACR-304",
+    "term": "USB OTG",
+    "full": "USB On the Go",
+    "definition": "Lets a device act as a USB host."
+  },
+  {
+    "id": "ACR-305",
+    "term": "UTM",
+    "full": "Unified Threat Management",
+    "definition": "All-in-one security appliance."
+  },
+  {
+    "id": "ACR-306",
+    "term": "UTP",
+    "full": "Unshielded Twisted Pair",
+    "definition": "Common copper network cabling."
+  },
+  {
+    "id": "ACR-307",
+    "term": "VBA",
+    "full": "Visual Basic",
+    "definition": "Microsoft scripting language used in macros."
+  },
+  {
+    "id": "ACR-308",
+    "term": "VDE",
+    "full": "Virtual Desktop Environment",
+    "definition": "A virtualized desktop session."
+  },
+  {
+    "id": "ACR-309",
+    "term": "VDI",
+    "full": "Virtual Desktop Infrastructure",
+    "definition": "Hosts user desktops on central servers."
+  },
+  {
+    "id": "ACR-310",
+    "term": "VLAN",
+    "full": "Virtual Local Area Network",
+    "definition": "Logical Layer-2 network segmentation."
+  },
+  {
+    "id": "ACR-311",
+    "term": "VLSM",
+    "full": "Variable Length Subnet Masking",
+    "definition": "Subnets of differing sizes for efficiency."
+  },
+  {
+    "id": "ACR-312",
+    "term": "VM",
+    "full": "Virtual Machine",
+    "definition": "Software-based emulation of a computer."
+  },
+  {
+    "id": "ACR-313",
+    "term": "VoIP",
+    "full": "Voice over IP",
+    "definition": "Voice communication over IP networks."
+  },
+  {
+    "id": "ACR-314",
+    "term": "VPC",
+    "full": "Virtual Private Cloud",
+    "definition": "Isolated, private network within a public cloud."
+  },
+  {
+    "id": "ACR-315",
+    "term": "VPN",
+    "full": "Virtual Private Network",
+    "definition": "Encrypted tunnel over a public network."
+  },
+  {
+    "id": "ACR-316",
+    "term": "VTC",
+    "full": "Video Teleconferencing",
+    "definition": "Real-time video meetings."
+  },
+  {
+    "id": "ACR-317",
+    "term": "WAF",
+    "full": "Web Application Firewall",
+    "definition": "Filters HTTP traffic to protect web apps."
+  },
+  {
+    "id": "ACR-318",
+    "term": "WAP",
+    "full": "Wireless Access Point",
+    "definition": "Provides Wi-Fi connectivity to a network."
+  },
+  {
+    "id": "ACR-319",
+    "term": "WEP",
+    "full": "Wired Equivalent Privacy",
+    "definition": "Obsolete, insecure Wi-Fi encryption."
+  },
+  {
+    "id": "ACR-320",
+    "term": "WIDS",
+    "full": "Wireless Intrusion Detection System",
+    "definition": "Detects threats on wireless networks."
+  },
+  {
+    "id": "ACR-321",
+    "term": "WIPS",
+    "full": "Wireless Intrusion Prevention System",
+    "definition": "Detects and blocks wireless threats."
+  },
+  {
+    "id": "ACR-322",
+    "term": "WO",
+    "full": "Work Order",
+    "definition": "Authorization to perform specified work."
+  },
+  {
+    "id": "ACR-323",
+    "term": "WPA",
+    "full": "Wi-Fi Protected Access",
+    "definition": "Wi-Fi security standard (WPA/WPA2/WPA3)."
+  },
+  {
+    "id": "ACR-324",
+    "term": "WPS",
+    "full": "Wi-Fi Protected Setup",
+    "definition": "Simplified Wi-Fi pairing (insecure)."
+  },
+  {
+    "id": "ACR-325",
+    "term": "WTLS",
+    "full": "Wireless TLS",
+    "definition": "TLS variant for the Wireless Application Protocol."
+  },
+  {
+    "id": "ACR-326",
+    "term": "XDR",
+    "full": "Extended Detection and Response",
+    "definition": "Unified detection/response across layers."
+  },
+  {
+    "id": "ACR-327",
+    "term": "XML",
+    "full": "Extensible Markup Language",
+    "definition": "Structured, self-describing data format."
+  },
+  {
+    "id": "ACR-328",
+    "term": "XOR",
+    "full": "Exclusive Or",
+    "definition": "Boolean operation widely used in cryptography."
+  },
+  {
+    "id": "ACR-329",
+    "term": "XSRF",
+    "full": "Cross-site Request Forgery",
+    "definition": "Another name for CSRF."
+  },
+  {
+    "id": "ACR-330",
+    "term": "XSS",
+    "full": "Cross-site Scripting",
+    "definition": "Injecting scripts into pages other users view."
+  }
+]

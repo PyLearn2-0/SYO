@@ -3,26 +3,68 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>CompTIA Security+ SY0-701 Practice Quiz</title>
+    <title>CompTIA Security+ SY0-701 Study Hub</title>
     <link rel="stylesheet" href="static/styles.css" />
   </head>
   <body>
     <header class="topbar">
-      <div class="brand">
+      <button id="brand-home" class="brand brand-button" type="button" aria-label="Back to home">
         <span class="brand-mark">SY0-701</span>
-        <span class="brand-name">Security+ Practice Quiz</span>
-      </div>
+        <span class="brand-name">Security+ Study Hub</span>
+      </button>
       <div id="session-stats" class="session-stats hidden">
-        <span><strong id="stat-progress">0 / 0</strong> answered</span>
-        <span><strong id="stat-correct">0</strong> correct</span>
+        <span><strong id="stat-progress">0 / 0</strong> <span id="stat-progress-label">answered</span></span>
+        <span><strong id="stat-correct">0</strong> <span id="stat-correct-label">correct</span></span>
         <span id="stat-percent">0%</span>
       </div>
     </header>
 
     <main id="app">
-      <!-- Setup screen -->
-      <section id="setup-screen" class="card setup">
-        <h1>Build your practice quiz</h1>
+      <!-- Home / mode-select screen -->
+      <section id="home-screen" class="card home">
+        <h1>How do you want to study?</h1>
+        <p class="lead">
+          Pick a mode below. Everything is drawn from the same SY0-701 question
+          pool and the official CompTIA acronym list.
+        </p>
+        <div class="mode-grid">
+          <button class="mode-btn" id="mode-exam" type="button">
+            <span class="mode-eyebrow">Test yourself</span>
+            <span class="mode-title">Practice Exam</span>
+            <span class="mode-desc">
+              A randomized multiple-choice quiz with instant feedback, scoring,
+              and a missed-question review.
+            </span>
+            <span class="mode-arrow" aria-hidden="true">→</span>
+          </button>
+
+          <button class="mode-btn" id="mode-exam-flash" type="button">
+            <span class="mode-eyebrow">Drill the pool</span>
+            <span class="mode-title">Exam Flashcards</span>
+            <span class="mode-desc">
+              Flip through real questions from the exam pool — recall the answer,
+              then reveal it and grade yourself.
+            </span>
+            <span class="mode-arrow" aria-hidden="true">→</span>
+          </button>
+
+          <button class="mode-btn" id="mode-acronym-flash" type="button">
+            <span class="mode-eyebrow">Memorize fast</span>
+            <span class="mode-title">Acronym Flashcards</span>
+            <span class="mode-desc">
+              The full official CompTIA SY0-701 acronym list. Flip each card to
+              see the meaning and a quick definition.
+            </span>
+            <span class="mode-arrow" aria-hidden="true">→</span>
+          </button>
+        </div>
+        <p id="home-loading" class="muted">Loading question bank…</p>
+      </section>
+
+      <!-- Practice Exam: setup -->
+      <section id="exam-setup" class="card setup hidden">
+        <button class="back-link" data-go-home type="button">‹ Back to modes</button>
+        <h1>Build your practice exam</h1>
         <p class="lead">
           Choose how many questions you want, and we'll randomly draw them from a
           pool of <strong id="pool-size">…</strong> SY0-701 questions. Each
@@ -32,14 +74,7 @@
         <div class="control">
           <label for="quiz-size">Number of questions</label>
           <div class="slider-row">
-            <input
-              type="range"
-              id="quiz-size"
-              min="60"
-              max="90"
-              step="1"
-              value="75"
-            />
+            <input type="range" id="quiz-size" min="10" max="90" step="1" value="75" />
             <output id="quiz-size-value">75</output>
           </div>
         </div>
@@ -53,12 +88,12 @@
           </label>
         </div>
 
-        <button id="start-btn" class="primary" disabled>Start Quiz</button>
+        <button id="start-btn" class="primary" disabled>Start Exam</button>
         <p id="loading-msg" class="muted">Loading question bank…</p>
       </section>
 
-      <!-- Quiz screen -->
-      <section id="quiz-screen" class="card hidden">
+      <!-- Practice Exam: question screen -->
+      <section id="exam-screen" class="card hidden">
         <div class="question-meta">
           <span id="q-number">Question 1 of 75</span>
           <span id="q-source" class="muted"></span>
@@ -83,14 +118,78 @@
             <button id="submit-btn" class="primary hidden">Submit</button>
             <button id="next-btn" class="primary" disabled>Next question</button>
           </div>
-          <button id="quit-btn" class="ghost">End quiz</button>
+          <button id="quit-btn" class="ghost">End exam</button>
         </div>
       </section>
 
-      <!-- Results screen -->
+      <!-- Flashcards: setup (shared by exam + acronym decks) -->
+      <section id="flash-setup" class="card setup hidden">
+        <button class="back-link" data-go-home type="button">‹ Back to modes</button>
+        <h1 id="flash-setup-title">Build your flashcard set</h1>
+        <p class="lead" id="flash-setup-lead">…</p>
+
+        <div class="control">
+          <label for="deck-size">Number of cards</label>
+          <div class="slider-row">
+            <input type="range" id="deck-size" min="10" max="330" step="1" value="30" />
+            <output id="deck-size-value">30</output>
+          </div>
+        </div>
+
+        <div class="control" id="flip-control">
+          <label class="checkbox">
+            <input type="checkbox" id="flip-direction" />
+            <span>Show the definition first
+              <small class="hint">(flip it around: read the meaning, recall the acronym)</small>
+            </span>
+          </label>
+        </div>
+
+        <button id="flash-start-btn" class="primary" disabled>Start Studying</button>
+        <p id="flash-loading-msg" class="muted">Loading deck…</p>
+      </section>
+
+      <!-- Flashcards: card screen (shared) -->
+      <section id="flash-screen" class="card hidden">
+        <div class="question-meta">
+          <span id="c-number">Card 1 of 30</span>
+          <span id="c-prompt-label" class="muted"></span>
+        </div>
+
+        <div id="flashcard" class="flashcard" role="button" tabindex="0" aria-label="Flip card">
+          <span id="flashcard-kicker" class="flashcard-kicker"></span>
+          <span id="flashcard-front" class="flashcard-front">…</span>
+          <ul id="flashcard-options" class="flashcard-options hidden"></ul>
+          <span id="flashcard-hint" class="flashcard-hint">Tap the card or press Space to flip</span>
+        </div>
+
+        <div id="c-feedback" class="feedback hidden">
+          <div class="feedback-header">
+            <span id="c-feedback-icon" class="feedback-icon">≡</span>
+            <span id="c-feedback-title" class="feedback-title"></span>
+          </div>
+          <div class="feedback-body">
+            <h3 id="c-feedback-label">Definition</h3>
+            <p id="c-feedback-explanation"></p>
+          </div>
+        </div>
+
+        <div class="quiz-actions">
+          <div class="action-group" id="reveal-group">
+            <button id="reveal-btn" class="primary">Reveal answer</button>
+          </div>
+          <div class="action-group hidden" id="grade-group">
+            <button id="missed-btn" class="grade grade-wrong">Didn't know it</button>
+            <button id="known-btn" class="grade grade-correct">I knew it</button>
+          </div>
+          <button id="flash-quit-btn" class="ghost">End session</button>
+        </div>
+      </section>
+
+      <!-- Results screen (shared by all modes) -->
       <section id="results-screen" class="card hidden">
-        <span class="results-eyebrow">Quiz complete</span>
-        <h1 class="results-headline">
+        <span class="results-eyebrow" id="results-eyebrow">Complete</span>
+        <h1 class="results-headline" id="results-headline">
           You got <span id="result-score">0</span> of
           <span id="result-total">0</span> correct.
         </h1>
@@ -105,7 +204,7 @@
         <details class="review" id="review-section">
           <summary>
             <span class="review-summary-text">
-              Review missed questions
+              <span id="review-label">Review missed questions</span>
               <span class="review-count" id="missed-count">0</span>
             </span>
             <span class="review-chevron" aria-hidden="true">›</span>
@@ -114,31 +213,30 @@
         </details>
 
         <div class="quiz-actions center">
-          <button id="restart-btn" class="primary">Take a new quiz</button>
+          <button id="results-home-btn" class="ghost">‹ Back to modes</button>
+          <button id="restart-btn" class="primary">Take a new set</button>
         </div>
       </section>
     </main>
 
     <footer class="footer">
-      <span>Questions sourced from public SY0-701 community dump</span>
-      <span class="footer-sep">·</span>
-      <a class="footer-link" href="https://stevenlb94.github.io/SY0-701-Flashcards/">Study the acronym flashcards →</a>
+      <span>Built for SY0-701 · Questions from the public community pool · Official CompTIA acronym list</span>
     </footer>
 
     <div id="modal-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
       <div class="modal">
-        <h3 id="modal-title">End quiz?</h3>
+        <h3 id="modal-title">End session?</h3>
         <p id="modal-body" class="modal-body">
-          You'll see your results so far. The questions you haven't reached
+          You'll see your results so far. The items you haven't reached
           will be skipped.
         </p>
         <div class="modal-actions">
           <button id="modal-cancel" class="ghost">Keep going</button>
-          <button id="modal-confirm" class="primary">End quiz</button>
+          <button id="modal-confirm" class="primary">End session</button>
         </div>
       </div>
     </div>
 
-    <script src="static/quiz.js"></script>
+    <script src="static/app.js"></script>
   </body>
 </html>

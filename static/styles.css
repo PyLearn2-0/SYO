@@ -795,6 +795,23 @@ button.ghost:hover {
   padding: 24px;
 }
 
+.footer-sep {
+  margin: 0 8px;
+  opacity: 0.6;
+}
+
+.footer-link {
+  color: var(--accent-strong);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.15s var(--ease);
+}
+
+.footer-link:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
+
 @keyframes slideIn {
   from {
     opacity: 0;

@@ -155,6 +155,11 @@ function escapeHtml(text) {
 }
 
 function show(screen) {
+  const extra = [
+    document.getElementById("pbq-hub"),
+    document.getElementById("pbq-lesson"),
+    document.getElementById("pbq-setup"),
+  ];
   for (const s of [
     els.home,
     els.examSetup,
@@ -162,8 +167,9 @@ function show(screen) {
     els.flashSetup,
     els.flashScreen,
     els.results,
+    ...extra,
   ]) {
-    s.classList.add("hidden");
+    if (s) s.classList.add("hidden");
   }
   screen.classList.remove("hidden");
 }
@@ -463,7 +469,7 @@ function showExamResults() {
   const score = state.correctCount;
   const pct = total === 0 ? 0 : Math.round((score / total) * 100);
 
-  els.resultsEyebrow.textContent = "Exam complete";
+  els.resultsEyebrow.textContent = state.mode === "pbqTest" ? "PBQ test complete" : "Exam complete";
   els.resultsHeadline.innerHTML = `You got <span>${score}</span> of <span>${total}</span> correct.`;
   els.resultPercent.textContent = `${pct}%`;
   els.resultVerdict.textContent = examVerdict(pct);
@@ -760,7 +766,9 @@ function animateBar(pct, passingThreshold) {
 
 function restartCurrentMode() {
   els.sessionStats.classList.add("hidden");
-  if (state.mode === MODE.EXAM) {
+  if (state.mode === "pbqTest" && typeof openPbqSetup === "function") {
+    openPbqSetup();
+  } else if (state.mode === MODE.EXAM) {
     openExamSetup();
   } else {
     openFlashSetup(state.mode);

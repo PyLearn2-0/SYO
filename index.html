@@ -57,6 +57,27 @@
             </span>
             <span class="mode-arrow" aria-hidden="true">→</span>
           </button>
+
+          <button class="mode-btn mode-btn-pbq" id="mode-pbq-lessons" type="button">
+            <span class="mode-eyebrow">Master the hard part</span>
+            <span class="mode-title">PBQ Lessons</span>
+            <span class="mode-desc">
+              Guided walkthroughs for performance-based questions — read
+              network topology &amp; traffic flow, build firewall rules, and
+              spot every attack type in a log.
+            </span>
+            <span class="mode-arrow" aria-hidden="true">→</span>
+          </button>
+
+          <button class="mode-btn mode-btn-pbq" id="mode-pbq-test" type="button">
+            <span class="mode-eyebrow">Prove it</span>
+            <span class="mode-title">PBQ Test</span>
+            <span class="mode-desc">
+              Quick 5-question checks on firewalls, network flow, log
+              analysis, and controls — with a full answer review at the end.
+            </span>
+            <span class="mode-arrow" aria-hidden="true">→</span>
+          </button>
         </div>
         <p id="home-loading" class="muted">Loading question bank…</p>
       </section>
@@ -217,6 +238,70 @@
           <button id="restart-btn" class="primary">Take a new set</button>
         </div>
       </section>
+
+      <!-- PBQ Lessons: hub / lesson list -->
+      <section id="pbq-hub" class="card hidden">
+        <button class="back-link" data-go-home type="button">‹ Back to modes</button>
+        <span class="results-eyebrow">PBQ Lessons</span>
+        <h1>Learn to read and beat performance-based questions</h1>
+        <p class="lead">
+          These are the interactive tasks at the start of the exam. Work through
+          them in order — the network and log lessons build on each other — then
+          run a <strong>PBQ Test</strong> to check yourself.
+        </p>
+        <ol id="pbq-lesson-list" class="lesson-list"></ol>
+        <div class="quiz-actions center">
+          <button id="pbq-hub-test-btn" class="primary">Take a 5-question PBQ test →</button>
+        </div>
+      </section>
+
+      <!-- PBQ Lessons: reader -->
+      <section id="pbq-lesson" class="card hidden">
+        <div class="lesson-topbar">
+          <button id="pbq-lesson-back" class="back-link" type="button">‹ All PBQ lessons</button>
+          <span id="pbq-lesson-progress" class="muted lesson-progress"></span>
+        </div>
+        <span id="pbq-lesson-eyebrow" class="results-eyebrow"></span>
+        <h1 id="pbq-lesson-title" class="lesson-title"></h1>
+        <div id="pbq-lesson-body" class="lesson-body"></div>
+        <div class="quiz-actions lesson-nav">
+          <button id="pbq-lesson-prev" class="ghost">‹ Previous</button>
+          <button id="pbq-lesson-next" class="primary">Next lesson ›</button>
+        </div>
+      </section>
+
+      <!-- PBQ Test: setup -->
+      <section id="pbq-setup" class="card setup hidden">
+        <button class="back-link" data-go-home type="button">‹ Back to modes</button>
+        <h1>Build a 5-question PBQ test</h1>
+        <p class="lead">
+          Five randomized performance-based questions with instant feedback and a
+          full review at the end. Pick a focus, or test across everything.
+        </p>
+        <div class="control">
+          <label>Focus area</label>
+          <div id="pbq-cat-grid" class="pbq-cat-grid">
+            <button type="button" class="pbq-cat is-active" data-cat="all">
+              <span class="pbq-cat-title">Mixed</span>
+              <span class="pbq-cat-sub">All PBQ skills</span>
+            </button>
+            <button type="button" class="pbq-cat" data-cat="network">
+              <span class="pbq-cat-title">Network &amp; Firewall</span>
+              <span class="pbq-cat-sub">Topology, traffic flow, rules</span>
+            </button>
+            <button type="button" class="pbq-cat" data-cat="logs">
+              <span class="pbq-cat-title">Logs &amp; Attacks</span>
+              <span class="pbq-cat-sub">Identify the attack</span>
+            </button>
+            <button type="button" class="pbq-cat" data-cat="controls">
+              <span class="pbq-cat-title">Security Controls</span>
+              <span class="pbq-cat-sub">Category &amp; function</span>
+            </button>
+          </div>
+        </div>
+        <button id="pbq-start-btn" class="primary">Start PBQ test</button>
+        <p id="pbq-loading-msg" class="muted">Loading PBQ pool…</p>
+      </section>
     </main>
 
     <footer class="footer">
@@ -238,5 +323,7 @@
     </div>
 
     <script src="static/app.js"></script>
+    <script src="static/pbq-data.js"></script>
+    <script src="static/pbq.js"></script>
   </body>
 </html>

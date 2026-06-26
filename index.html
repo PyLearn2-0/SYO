@@ -286,20 +286,78 @@
             </button>
             <button type="button" class="pbq-cat" data-cat="network">
               <span class="pbq-cat-title">Network &amp; Firewall</span>
-              <span class="pbq-cat-sub">Topology, traffic flow, rules</span>
+              <span class="pbq-cat-sub">Firewall config &amp; controls</span>
             </button>
             <button type="button" class="pbq-cat" data-cat="logs">
               <span class="pbq-cat-title">Logs &amp; Attacks</span>
-              <span class="pbq-cat-sub">Identify the attack</span>
+              <span class="pbq-cat-sub">Select evidence, name the attack</span>
             </button>
             <button type="button" class="pbq-cat" data-cat="controls">
-              <span class="pbq-cat-title">Security Controls</span>
-              <span class="pbq-cat-sub">Category &amp; function</span>
+              <span class="pbq-cat-title">Controls &amp; Concepts</span>
+              <span class="pbq-cat-sub">Drag/drop, categorize, classify</span>
             </button>
           </div>
         </div>
         <button id="pbq-start-btn" class="primary">Start PBQ test</button>
         <p id="pbq-loading-msg" class="muted">Loading PBQ pool…</p>
+      </section>
+
+      <!-- Interactive PBQ test runner -->
+      <section id="pbqx-screen" class="card hidden">
+        <div class="pbqx-chrome">
+          <button id="pbqx-exit" class="pbqx-chip-link" type="button">‹ Exit assessment</button>
+          <span id="pbqx-progress" class="pbqx-progress">Question 1 of 5</span>
+          <button id="pbqx-mark" class="pbqx-mark" type="button">
+            <span class="pbqx-mark-flag" aria-hidden="true">⚑</span> Mark for review
+          </button>
+        </div>
+
+        <div class="pbqx-head">
+          <h2 id="pbqx-title">Question</h2>
+          <p id="pbqx-scenario" class="pbqx-scenario"></p>
+        </div>
+
+        <div id="pbqx-body" class="pbqx-body"></div>
+
+        <div id="pbqx-feedback" class="pbqx-feedback hidden">
+          <span id="pbqx-feedback-icon" class="pbqx-feedback-icon" aria-hidden="true"></span>
+          <div class="pbqx-feedback-main">
+            <div id="pbqx-feedback-title" class="pbqx-feedback-title"></div>
+            <p id="pbqx-feedback-text" class="pbqx-feedback-text"></p>
+          </div>
+        </div>
+
+        <div class="pbqx-actions">
+          <button id="pbqx-reset" class="ghost" type="button">Reset answers</button>
+          <div class="pbqx-actions-right">
+            <button id="pbqx-prev" class="ghost" type="button">‹ Previous</button>
+            <button id="pbqx-submit" class="primary" type="button">Submit answer</button>
+            <button id="pbqx-next" class="primary hidden" type="button">Next ›</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="pbqx-results" class="card hidden">
+        <button id="pbqx-results-home" class="back-link" type="button">‹ Back to modes</button>
+        <p class="results-eyebrow">PBQ test complete</p>
+        <div class="pbqx-result-top">
+          <div class="pbqx-result-score">
+            <span id="pbqx-result-score">0 / 5</span>
+            <span class="pbqx-result-score-label">tasks fully correct</span>
+          </div>
+          <div class="pbqx-result-meter">
+            <div class="pbqx-result-meter-head">
+              <span>Overall accuracy</span>
+              <span id="pbqx-result-percent">0%</span>
+            </div>
+            <div class="pbqx-bar"><div id="pbqx-result-bar" class="pbqx-bar-fill"></div></div>
+            <p id="pbqx-result-verdict" class="pbqx-result-verdict"></p>
+          </div>
+        </div>
+        <div id="pbqx-review" class="pbqx-review"></div>
+        <div class="pbqx-actions">
+          <button id="pbqx-results-restart" class="primary" type="button">New PBQ test</button>
+        </div>
       </section>
     </main>
 
@@ -323,6 +381,7 @@
 
     <script src="static/app.js"></script>
     <script src="static/pbq-data.js"></script>
+    <script src="static/pbq-test-data.js"></script>
     <script src="static/pbq.js"></script>
   </body>
 </html>

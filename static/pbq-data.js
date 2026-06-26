@@ -536,6 +536,354 @@ const PBQ_DATA = {
         },
       ],
     },
+
+    /* ---------------------------------------------------------------- 7 */
+    {
+      id: "ports",
+      eyebrow: "Network PBQs",
+      title: "Ports & Protocols for Firewall PBQs",
+      minutes: 7,
+      summary:
+        "The firewall-config PBQ lives or dies on ports. Here is every service the exam loves, the port number, and the protocol to pick.",
+      blocks: [
+        {
+          type: "p",
+          text: "In a firewall-configuration PBQ you read a plain-English requirement ('allow the web server to query the database with PostgreSQL') and must fill in the exact Source, Destination, Port, Protocol, and Action. The hard part is the port. Memorize this table and most rows become automatic.",
+        },
+        {
+          type: "table",
+          caption: "Secure vs insecure pairs — the exam tests whether you pick the encrypted one",
+          head: ["Service", "Port", "Protocol", "Note"],
+          rows: [
+            ["HTTP", "80", "TCP", "Cleartext web — block when 'secure' is required"],
+            ["HTTPS", "443", "TCP", "Encrypted web — the 'secure web traffic' answer"],
+            ["Telnet", "23", "TCP", "Cleartext admin — almost always the BLOCK answer"],
+            ["SSH", "22", "TCP", "Secure remote admin / 'secure remote administration'"],
+            ["FTP", "20/21", "TCP", "Cleartext file transfer"],
+            ["SFTP", "22", "TCP", "Secure file transfer (rides SSH)"],
+            ["LDAP", "389", "TCP", "Directory queries (cleartext)"],
+            ["LDAPS", "636", "TCP", "Secure LDAP — 'secure LDAP authentication'"],
+            ["Syslog", "514", "UDP", "Logging (cleartext)"],
+            ["Syslog over TLS", "6514", "TCP", "'Secure syslog protocol' answer"],
+            ["SNMP", "161", "UDP", "Query a device"],
+            ["SNMP trap", "162", "UDP", "Device SENDS alerts — 'send alerts' = 162"],
+          ],
+        },
+        {
+          type: "table",
+          caption: "Databases, mail, file sharing, remote access, and naming",
+          head: ["Service", "Port", "Protocol", "Service", "Port"],
+          rows: [
+            ["MySQL", "3306 (TCP)", "MS SQL", "1433 (TCP)", ""],
+            ["PostgreSQL", "5432 (TCP)", "Oracle", "1521 (TCP)", ""],
+            ["SMTP (send mail)", "25 (TCP)", "DNS", "53 (UDP)", ""],
+            ["RDP (remote desktop)", "3389 (TCP)", "SMB (file share)", "445 (TCP)", ""],
+            ["NetBIOS", "137-139 (TCP/UDP)", "Kerberos", "88 (TCP/UDP)", ""],
+          ],
+        },
+        {
+          type: "callout",
+          variant: "key",
+          title: "Read the verb in the requirement",
+          text: "'Secure web' → 443 not 80. 'Secure remote administration' → SSH 22 not Telnet 23. 'Secure LDAP' → 636 not 389. 'Send alerts/traps' (SNMP) → 162 not 161. 'Secure syslog' → 6514 not 514. The word 'secure' almost always means swap to the encrypted port.",
+        },
+        {
+          type: "callout",
+          variant: "tip",
+          title: "Protocol gotchas",
+          text: "DNS and SNMP are UDP. Most app traffic (web, SSH, RDP, database, SMTP, LDAP/LDAPS) is TCP. 'Block ALL access' usually means Port = ANY and Protocol = ANY with Action = Deny.",
+        },
+        {
+          type: "keys",
+          items: [
+            "443/22/636/6514/162 are the 'secure' answers; 80/23/389/514/161 are their cleartext twins.",
+            "DBs: MySQL 3306, PostgreSQL 5432, MS SQL 1433, Oracle 1521.",
+            "DNS 53/UDP, RDP 3389, SMB 445, SMTP 25, Telnet 23.",
+            "'Block all' = Port ANY, Protocol ANY, Action Deny.",
+          ],
+        },
+      ],
+    },
+
+    /* ---------------------------------------------------------------- 8 */
+    {
+      id: "auth-factors",
+      eyebrow: "Identity PBQs",
+      title: "Authentication Factors",
+      minutes: 6,
+      summary:
+        "Sort any authenticator into the right factor — the drag-and-drop PBQ is pure pattern matching once you know the four buckets.",
+      blocks: [
+        {
+          type: "p",
+          text: "Authentication PBQs hand you a pile of methods (smart card, retina scan, PIN, token, GPS...) and ask you to drop each into its factor. Multi-factor authentication (MFA) only counts when the factors are DIFFERENT types — two passwords is still one factor.",
+        },
+        {
+          type: "table",
+          head: ["Factor", "Plain English", "Examples"],
+          rows: [
+            ["Something you KNOW", "Knowledge", "Password, PIN, pattern lock, security question"],
+            ["Something you HAVE", "Possession", "Smart card, security token/key fob, phone (push/OTP), certificate"],
+            ["Something you ARE", "Inherence", "Fingerprint, retina/iris scan, facial recognition, voiceprint"],
+            ["Somewhere you ARE", "Location", "GPS coordinates, IP address/geolocation, network/region"],
+          ],
+        },
+        {
+          type: "callout",
+          variant: "key",
+          title: "Quick sorts that trip people up",
+          text: "Smart card and security token = HAVE (possession). Retina scan and facial recognition = ARE (inherence/biometric). Pattern lock = KNOW. IP address / GPS = location. A biometric is always 'are', never 'have'.",
+        },
+        {
+          type: "keys",
+          items: [
+            "Four buckets: know, have, are, where you are.",
+            "Biometrics (retina, face, fingerprint, voice) = inherence ('are').",
+            "Cards, tokens, key fobs, phones, certs = possession ('have').",
+            "IP/GPS/geofence = location ('somewhere you are').",
+          ],
+        },
+      ],
+    },
+
+    /* ---------------------------------------------------------------- 9 */
+    {
+      id: "threat-actors",
+      eyebrow: "Threats PBQs",
+      title: "Threat Actors & Their Motivations",
+      minutes: 7,
+      summary:
+        "Match the attacker to the scenario and the motive behind it — a classic two-dropdown PBQ.",
+      blocks: [
+        {
+          type: "p",
+          text: "These PBQs describe an incident and ask 'who did it' plus 'why'. Anchor on the actor's resources and the goal stated in the scenario.",
+        },
+        {
+          type: "table",
+          head: ["Threat actor", "Tell-tale clues", "Usual motivation"],
+          rows: [
+            ["Nation-state / APT", "Foreign government, military/energy/SCADA target, long-term, well-funded", "Espionage, political/strategic advantage"],
+            ["Organized crime", "Transnational crew, ransomware, demands cryptocurrency", "Financial gain"],
+            ["Hacktivist", "Leaks data to make a point, defaces for a cause, exposes 'wrongdoing'", "Philosophical / political / ethical beliefs"],
+            ["Insider threat", "Current/former employee using their OWN access", "Revenge, grievance, or financial gain"],
+            ["Unskilled attacker (script kiddie)", "Off-the-shelf toolkit, low skill, defacement/vandalism", "Disruption, chaos, notoriety"],
+            ["Shadow IT", "Employees standing up unsanctioned tools/cloud", "Convenience (not malicious, but risky)"],
+          ],
+        },
+        {
+          type: "callout",
+          variant: "key",
+          title: "Motivation keywords",
+          text: "'Demands payment/crypto' → financial gain (organized crime). 'Because he was fired' → revenge (insider). 'To expose/show wrongdoing' → philosophical (hacktivist). 'Harvest intelligence / SCADA / state target' → espionage (nation-state). 'Deface with a downloaded toolkit' → disruption (unskilled).",
+        },
+        {
+          type: "keys",
+          items: [
+            "Resources high + state target = nation-state, motive espionage.",
+            "Ransomware + crypto demand = organized crime, motive financial gain.",
+            "Cause / leak to prove a point = hacktivist, motive beliefs.",
+            "Own credentials + grudge = insider threat, motive revenge.",
+            "Downloaded toolkit + defacement = unskilled attacker, motive disruption.",
+          ],
+        },
+      ],
+    },
+
+    /* --------------------------------------------------------------- 10 */
+    {
+      id: "social-engineering",
+      eyebrow: "Threats PBQs",
+      title: "Social Engineering Techniques",
+      minutes: 6,
+      summary:
+        "Phishing, vishing, whaling, pretexting and friends — match the lure to the channel and target.",
+      blocks: [
+        {
+          type: "p",
+          text: "Social-engineering PBQs match a description to the specific technique. The distinguishing factors are the CHANNEL (email, voice, text) and the TARGET (everyone vs. executives).",
+        },
+        {
+          type: "table",
+          head: ["Technique", "Channel / trick", "Target"],
+          rows: [
+            ["Phishing", "Fraudulent email pretending to be trusted", "Mass / anyone"],
+            ["Spear phishing", "Tailored phishing using personal details", "Specific person/group"],
+            ["Whaling", "Phishing aimed at the 'big fish'", "Executives, board, VIPs"],
+            ["Vishing", "Voice call over the phone", "Anyone by phone"],
+            ["Smishing", "SMS / text message", "Anyone by text"],
+            ["Pretexting", "Fabricated scenario / false identity to build trust", "Anyone"],
+            ["Impersonation", "Pretending to be a known role (IT, vendor)", "Anyone"],
+            ["Watering hole", "Compromise a site the target group visits", "A specific community"],
+          ],
+        },
+        {
+          type: "callout",
+          variant: "key",
+          title: "Decoders",
+          text: "Email = phishing; phone/voice = vishing; text = smishing; targeting executives = whaling; inventing a believable backstory/identity = pretexting. 'Highly targeted at senior executives' is the giveaway for whaling.",
+        },
+        {
+          type: "keys",
+          items: [
+            "Match by channel: email→phishing, voice→vishing, SMS→smishing.",
+            "Whaling = phishing aimed at high-profile executives.",
+            "Pretexting = a fabricated story/identity to establish trust.",
+          ],
+        },
+      ],
+    },
+
+    /* --------------------------------------------------------------- 11 */
+    {
+      id: "deception",
+      eyebrow: "Defense PBQs",
+      title: "Deception & Disruption Technology",
+      minutes: 6,
+      summary:
+        "Honeypot vs honeynet vs honeyfile vs honeytoken — the 'honey' family sorted by SIZE and TYPE of bait.",
+      blocks: [
+        {
+          type: "p",
+          text: "Deception PBQs match a decoy to its name. The whole family is fake bait that alerts when touched. Sort them by what the bait IS: a single file, a single record/credential, one system, or a whole network.",
+        },
+        {
+          type: "table",
+          head: ["Decoy", "What it is", "Example"],
+          rows: [
+            ["Honeyfile", "A single fake FILE that alerts on access", "executive_compensation_2025.xlsx in a shared folder; patient_data.csv"],
+            ["Honeytoken", "A single fake DATA element / credential", "A fake credit-card number or patient MRN that alerts when used"],
+            ["Honeypot", "A single fake SYSTEM/service", "A decoy FTP or PACS server monitored for access"],
+            ["Honeynet", "A whole fake NETWORK of systems", "A simulated banking or EHR environment with many decoy hosts"],
+          ],
+        },
+        {
+          type: "callout",
+          variant: "key",
+          title: "Sort by scale of the bait",
+          text: "File → honeyfile. A piece of data/credential → honeytoken. One server/service → honeypot. Many systems on a segment → honeynet. If the scenario lists 'a collection of systems' or 'simulated infrastructure', it's a honeynet.",
+        },
+        {
+          type: "keys",
+          items: [
+            "Honeyfile = one decoy file; honeytoken = one decoy data item/credential.",
+            "Honeypot = one decoy system; honeynet = a network of decoys.",
+            "All of them are detective controls: they exist to be touched and trigger an alert.",
+          ],
+        },
+      ],
+    },
+
+    /* --------------------------------------------------------------- 12 */
+    {
+      id: "physical",
+      eyebrow: "Physical PBQs",
+      title: "Physical Security Controls",
+      minutes: 7,
+      summary:
+        "Bollards, vestibules, fences, lighting, guards, and motion sensors — match the device to the job it does.",
+      blocks: [
+        {
+          type: "p",
+          text: "Physical PBQs match a real-world control to a deployment description. Read what the control physically DOES.",
+        },
+        {
+          type: "table",
+          head: ["Control", "What it does", "Tell-tale phrase"],
+          rows: [
+            ["Bollards", "Stop vehicles ramming a building", "'concrete/steel posts', 'vehicle ramming', 'front plaza/entrance'"],
+            ["Access control vestibule (mantrap)", "Two sequential doors stop tailgating", "'two-door', 'prevents tailgating', badge at each door"],
+            ["Fencing", "Perimeter barrier", "'chain-link', 'barbed wire', 'surrounding the facility'"],
+            ["Lighting", "Remove shadows/concealment", "'LED fixtures', 'eliminate dark zones', 'foot-candles'"],
+            ["Security guard", "Human verification/escort", "'personnel', 'verify appointments', 'visitor log'"],
+            ["Video surveillance", "Record/monitor (detect + deter)", "'CCTV', '90-day retention', 'facial recognition cameras'"],
+          ],
+        },
+        {
+          type: "h", text: "Motion / intrusion sensors (the 'how does it sense' set)",
+        },
+        {
+          type: "table",
+          head: ["Sensor", "How it senses"],
+          rows: [
+            ["Ultrasonic", "Emits SOUND waves above ~20 kHz, watches the reflected pattern"],
+            ["Microwave", "Emits RADIO/RF waves; can sense through walls into adjacent spaces"],
+            ["Pressure", "Detects WEIGHT/force applied (floor tiles, mats)"],
+            ["Infrared (PIR)", "Detects body HEAT/temperature change"],
+          ],
+        },
+        {
+          type: "callout",
+          variant: "key",
+          title: "Sensor decoders",
+          text: "Sound above 20 kHz → ultrasonic. RF/radio through walls → microwave. Force/weight on the floor → pressure. Heat → infrared. The physics verb in the sentence names the sensor.",
+        },
+        {
+          type: "keys",
+          items: [
+            "Vehicles → bollards; tailgating → access control vestibule.",
+            "Cameras detect + deter (they don't physically prevent entry).",
+            "Sensors: sound→ultrasonic, RF→microwave, weight→pressure, heat→infrared.",
+          ],
+        },
+      ],
+    },
+
+    /* --------------------------------------------------------------- 13 */
+    {
+      id: "availability-memory",
+      eyebrow: "Log PBQs",
+      title: "DNS, DDoS & Buffer-Overflow Logs",
+      minutes: 9,
+      summary:
+        "Three more attack signatures the log PBQs throw at you: DNS floods, distributed denial of service, and memory-corruption overflows.",
+      blocks: [
+        {
+          type: "p",
+          text: "Beyond injection and XSS, log PBQs test availability attacks (DDoS/DNS) and memory attacks (buffer overflow). Each has an unmistakable signature.",
+        },
+        { type: "h", text: "DNS flood / NXDOMAIN attack (a DDoS on the resolver)" },
+        {
+          type: "log",
+          intro: "ISP DNS resolver log — the flood lines are the attack:",
+          lines: [
+            { meta: "09:00:15", text: "client query: www.google.com IN A -> 142.250.80.46", bad: false },
+            { meta: "09:01:30", text: "NXDOMAIN attack detected: 50,000 queries for random.invalid-tld.xyz from 45.123.67.89 in 60s", bad: true },
+            { meta: "09:02:23", text: "Query flood: 25,000 queries/sec from IPs exceeding capacity", bad: true },
+            { meta: "09:03:49", text: "Resolver timeout: unable to process legitimate queries due to resource exhaustion", bad: true },
+          ],
+        },
+        {
+          type: "p",
+          text: "Tens of thousands of queries/second, requests for random non-existent domains (NXDOMAIN), and the resolver exhausting resources so legitimate users are denied service = a DNS-based Distributed Denial of Service. The goal is AVAILABILITY loss, which makes it a DDoS attack (NXDOMAIN/query flood being the DNS-specific technique).",
+        },
+        { type: "h", text: "Buffer overflow (memory corruption)" },
+        {
+          type: "log",
+          intro: "Legacy FTP server log — overflow attempt and crash:",
+          lines: [
+            { meta: "09:01:01", text: "230 Login successful", bad: false },
+            { meta: "09:01:24", text: 'USER AAAAAAAAAAAAAAAAAAAA...(hundreds of A\'s)', bad: true },
+            { meta: "09:02:27", text: "PASS \\x41\\x41\\x41...\\x90\\x90\\x90...(NOP sled)...\\x6b\\x89\\x76\\x08 (shellcode)", bad: true },
+            { meta: "09:03:01", text: "Segmentation fault (core dumped) - process vsftpd crashed", bad: true },
+          ],
+        },
+        {
+          type: "callout",
+          variant: "key",
+          title: "Signatures to memorize",
+          text: "Absurdly long input (AAAA…), \\x90 NOP sleds, raw \\x.. shellcode bytes, and a 'segmentation fault / core dumped / crashed' = buffer overflow. A flood from many IPs that exhausts a service = DDoS. Floods of random/NXDOMAIN lookups against a resolver = DNS-based DDoS.",
+        },
+        {
+          type: "keys",
+          items: [
+            "Buffer overflow: long padding (AAAA), \\x90 NOP sled, shellcode bytes, then a crash/segfault.",
+            "DDoS: huge request volume from many sources, resource exhaustion, legit users denied.",
+            "NXDOMAIN/query flood = the DNS flavor of a DDoS against a resolver.",
+          ],
+        },
+      ],
+    },
   ],
 
   /* ============================== TEST POOL ============================= */

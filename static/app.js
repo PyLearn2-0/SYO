@@ -158,6 +158,8 @@ function show(screen) {
     document.getElementById("pbq-hub"),
     document.getElementById("pbq-lesson"),
     document.getElementById("pbq-setup"),
+    document.getElementById("pbqx-screen"),
+    document.getElementById("pbqx-results"),
   ];
   for (const s of [
     els.home,
@@ -561,6 +563,7 @@ function renderCard() {
   els.cNumber.textContent = `Card ${state.fIndex + 1} of ${state.deck.length}`;
   els.flashcard.classList.remove("flipped");
   els.flashcard.setAttribute("aria-pressed", "false");
+  els.flashcard.setAttribute("aria-label", "Flip card to reveal answer");
   els.revealGroup.classList.remove("hidden");
   els.gradeGroup.classList.add("hidden");
   els.flashcardHint.textContent = "Tap the card or press Space to flip";
@@ -635,9 +638,26 @@ function revealCard() {
   state.revealed = true;
   els.flashcard.classList.add("flipped");
   els.flashcard.setAttribute("aria-pressed", "true");
+  els.flashcard.setAttribute("aria-label", "Flip card back to question");
   els.flashcardHint.textContent = "";
   els.revealGroup.classList.add("hidden");
   els.gradeGroup.classList.remove("hidden");
+}
+
+function unrevealCard() {
+  if (!state.revealed) return;
+  state.revealed = false;
+  els.flashcard.classList.remove("flipped");
+  els.flashcard.setAttribute("aria-pressed", "false");
+  els.flashcard.setAttribute("aria-label", "Flip card to reveal answer");
+  els.flashcardHint.textContent = "Tap the card or press Space to flip";
+  els.revealGroup.classList.remove("hidden");
+  els.gradeGroup.classList.add("hidden");
+}
+
+function toggleCardFlip() {
+  if (state.revealed) unrevealCard();
+  else revealCard();
 }
 
 function gradeCard(known) {
@@ -853,6 +873,9 @@ function onKeydown(e) {
   if (!state.revealed && (e.key === " " || e.key === "Enter")) {
     e.preventDefault();
     revealCard();
+  } else if (state.revealed && (e.key === " " || e.key === "Enter")) {
+    e.preventDefault();
+    unrevealCard();
   } else if (state.revealed) {
     if (e.key === "1" || e.key.toLowerCase() === "n") {
       e.preventDefault();
@@ -897,11 +920,11 @@ function init() {
   els.flashStartBtn.addEventListener("click", startFlash);
 
   // Flash screen
-  els.flashcard.addEventListener("click", revealCard);
+  els.flashcard.addEventListener("click", toggleCardFlip);
   els.flashcard.addEventListener("keydown", (e) => {
     if (e.key === " " || e.key === "Enter") {
       e.preventDefault();
-      revealCard();
+      toggleCardFlip();
     }
   });
   els.revealBtn.addEventListener("click", revealCard);

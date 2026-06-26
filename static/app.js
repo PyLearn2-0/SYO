@@ -96,11 +96,10 @@ const els = {
   flashcardFront: document.getElementById("flashcard-front"),
   flashcardOptions: document.getElementById("flashcard-options"),
   flashcardHint: document.getElementById("flashcard-hint"),
-  cFeedback: document.getElementById("c-feedback"),
-  cFeedbackIcon: document.getElementById("c-feedback-icon"),
-  cFeedbackTitle: document.getElementById("c-feedback-title"),
-  cFeedbackLabel: document.getElementById("c-feedback-label"),
-  cFeedbackExplanation: document.getElementById("c-feedback-explanation"),
+  flashcardBackKicker: document.getElementById("flashcard-back-kicker"),
+  flashcardBackTitle: document.getElementById("flashcard-back-title"),
+  flashcardBackOptions: document.getElementById("flashcard-back-options"),
+  flashcardBackBody: document.getElementById("flashcard-back-body"),
   revealGroup: document.getElementById("reveal-group"),
   revealBtn: document.getElementById("reveal-btn"),
   gradeGroup: document.getElementById("grade-group"),
@@ -561,20 +560,21 @@ function renderCard() {
 
   els.cNumber.textContent = `Card ${state.fIndex + 1} of ${state.deck.length}`;
   els.flashcard.classList.remove("flipped");
-  els.cFeedback.classList.add("hidden");
-  els.cFeedback.classList.remove("correct", "incorrect");
+  els.flashcard.setAttribute("aria-pressed", "false");
   els.revealGroup.classList.remove("hidden");
   els.gradeGroup.classList.add("hidden");
   els.flashcardHint.textContent = "Tap the card or press Space to flip";
 
+  // Both faces are populated up front; the flip itself reveals the answer.
   if (card.kind === "acronym") {
-    renderAcronymFront(card.data);
+    buildAcronymCard(card.data);
   } else {
-    renderExamFront(card.data);
+    buildExamCard(card.data);
   }
 }
 
-function renderAcronymFront(c) {
+function buildAcronymCard(c) {
+  // FRONT — the prompt
   const front = state.definitionFirst ? c.definition : c.term;
   els.flashcardKicker.textContent = state.definitionFirst ? "Definition" : "Acronym";
   els.cPromptLabel.textContent = state.definitionFirst ? "Recall the acronym" : "Recall the meaning";
@@ -582,15 +582,24 @@ function renderAcronymFront(c) {
   els.flashcardFront.classList.toggle("is-definition", state.definitionFirst);
   els.flashcardOptions.classList.add("hidden");
   els.flashcardOptions.innerHTML = "";
+
+  // BACK — the answer
+  els.flashcardBackKicker.textContent = "Answer";
+  els.flashcardBackTitle.innerHTML = `<span class="fc-back-term">${escapeHtml(c.term)}</span>` +
+    (c.full ? ` — ${escapeHtml(c.full)}` : "");
+  els.flashcardBackOptions.classList.add("hidden");
+  els.flashcardBackOptions.innerHTML = "";
+  els.flashcardBackBody.textContent = c.definition || "";
 }
 
-function renderExamFront(q) {
+function buildExamCard(q) {
   const letters = Object.keys(q.options).sort();
+
+  // FRONT — the question and its options (no highlighting yet)
   els.flashcardKicker.textContent = `Question · Topic ${q.topic} · #${q.number}`;
   els.cPromptLabel.textContent = "Recall the answer";
   els.flashcardFront.textContent = q.question;
   els.flashcardFront.classList.add("is-definition");
-
   els.flashcardOptions.innerHTML = "";
   letters.forEach((letter) => {
     const li = document.createElement("li");
@@ -601,60 +610,34 @@ function renderExamFront(q) {
     els.flashcardOptions.appendChild(li);
   });
   els.flashcardOptions.classList.remove("hidden");
+
+  // BACK — the correct option(s) highlighted + the explanation
+  const correctSet = new Set(q.correct);
+  els.flashcardBackKicker.textContent = q.correct.length > 1 ? "Correct answers" : "Correct answer";
+  els.flashcardBackTitle.textContent = "";
+  els.flashcardBackOptions.innerHTML = "";
+  letters.forEach((letter) => {
+    const li = document.createElement("li");
+    li.className = correctSet.has(letter) ? "fc-correct" : "fc-dim";
+    li.innerHTML = `<span class="fc-letter">${letter}</span><span class="fc-text">${escapeHtml(
+      q.options[letter]
+    )}</span>`;
+    els.flashcardBackOptions.appendChild(li);
+  });
+  els.flashcardBackOptions.classList.remove("hidden");
+  els.flashcardBackBody.textContent = q.explanation
+    ? q.explanation
+    : "(No additional explanation available for this question.)";
 }
 
 function revealCard() {
   if (state.revealed) return;
   state.revealed = true;
-  const card = state.deck[state.fIndex];
   els.flashcard.classList.add("flipped");
-
-  if (card.kind === "acronym") {
-    revealAcronym(card.data);
-  } else {
-    revealExam(card.data);
-  }
-
+  els.flashcard.setAttribute("aria-pressed", "true");
+  els.flashcardHint.textContent = "";
   els.revealGroup.classList.add("hidden");
   els.gradeGroup.classList.remove("hidden");
-}
-
-function revealAcronym(c) {
-  els.flashcardKicker.textContent = "Answer";
-  els.flashcardFront.textContent = state.definitionFirst ? c.term : c.full;
-  els.flashcardFront.classList.toggle("is-definition", !state.definitionFirst);
-  els.flashcardHint.textContent = state.definitionFirst ? c.definition : c.full;
-
-  els.cFeedback.classList.remove("hidden");
-  els.cFeedbackIcon.textContent = "≡";
-  els.cFeedbackLabel.textContent = "Definition";
-  els.cFeedbackTitle.innerHTML = `<span class="feedback-term">${escapeHtml(
-    c.term
-  )}</span> — ${escapeHtml(c.full)}`;
-  els.cFeedbackExplanation.textContent = c.definition;
-}
-
-function revealExam(q) {
-  const correctSet = new Set(q.correct);
-  // Highlight correct options in the list.
-  els.flashcardOptions.querySelectorAll("li").forEach((li) => {
-    if (correctSet.has(li.dataset.letter)) li.classList.add("fc-correct");
-    else li.classList.add("fc-dim");
-  });
-  els.flashcardKicker.textContent = "Answer revealed";
-  els.flashcardHint.textContent = "";
-
-  const correctText = q.correct
-    .map((l) => `${l}. ${q.options[l]}`)
-    .join("   ·   ");
-
-  els.cFeedback.classList.remove("hidden");
-  els.cFeedbackIcon.textContent = "✓";
-  els.cFeedbackLabel.textContent = "Why?";
-  els.cFeedbackTitle.textContent = `Correct: ${correctText}`;
-  els.cFeedbackExplanation.textContent = q.explanation
-    ? q.explanation
-    : "(No additional explanation available for this question.)";
 }
 
 function gradeCard(known) {

@@ -177,21 +177,20 @@
           <span id="c-prompt-label" class="muted"></span>
         </div>
 
-        <div id="flashcard" class="flashcard" role="button" tabindex="0" aria-label="Flip card">
-          <span id="flashcard-kicker" class="flashcard-kicker"></span>
-          <span id="flashcard-front" class="flashcard-front">…</span>
-          <ul id="flashcard-options" class="flashcard-options hidden"></ul>
-          <span id="flashcard-hint" class="flashcard-hint">Tap the card or press Space to flip</span>
-        </div>
-
-        <div id="c-feedback" class="feedback hidden">
-          <div class="feedback-header">
-            <span id="c-feedback-icon" class="feedback-icon">≡</span>
-            <span id="c-feedback-title" class="feedback-title"></span>
-          </div>
-          <div class="feedback-body">
-            <h3 id="c-feedback-label">Definition</h3>
-            <p id="c-feedback-explanation"></p>
+        <div id="flashcard" class="flashcard" role="button" tabindex="0" aria-label="Flip card" aria-pressed="false">
+          <div class="flashcard-inner">
+            <div class="flashcard-face flashcard-face-front">
+              <span id="flashcard-kicker" class="flashcard-kicker"></span>
+              <span id="flashcard-front" class="flashcard-front">…</span>
+              <ul id="flashcard-options" class="flashcard-options hidden"></ul>
+              <span id="flashcard-hint" class="flashcard-hint">Tap the card or press Space to flip</span>
+            </div>
+            <div class="flashcard-face flashcard-face-back">
+              <span id="flashcard-back-kicker" class="flashcard-kicker">Answer</span>
+              <span id="flashcard-back-title" class="flashcard-back-title"></span>
+              <ul id="flashcard-back-options" class="flashcard-options hidden"></ul>
+              <div id="flashcard-back-body" class="flashcard-back-body"></div>
+            </div>
           </div>
         </div>
 

@@ -2,13 +2,19 @@
 
 /* ------------------------------------------------------------------ *
  * CompTIA Security+ SY0-701 Study Hub
- * Three modes share one engine:
- *   - exam         : multiple-choice practice quiz (instant feedback)
- *   - examFlash    : flip cards built from the question pool
- *   - acronymFlash : flip cards from the official CompTIA acronym list
+ * Four modes share two engines:
+ *   - exam      : multiple-choice practice quiz (instant feedback)
+ *   - examFlash : flip cards built from the question pool
+ *   - portFlash : flip cards for the 17 essential ports (ports-data.js)
+ *   - portQuiz  : generated multiple-choice quiz over those same ports
  * ------------------------------------------------------------------ */
 
-const MODE = { EXAM: "exam", EXAM_FLASH: "examFlash", ACRONYM_FLASH: "acronymFlash" };
+const MODE = {
+  EXAM: "exam",
+  EXAM_FLASH: "examFlash",
+  PORT_FLASH: "portFlash",
+  PORT_QUIZ: "portQuiz",
+};
 
 /* Official SY0-701 exam domains. Every question carries a "domain" (1-5). */
 const DOMAINS = {
@@ -27,9 +33,8 @@ function domainLabel(domain) {
 const state = {
   mode: null,
   questionPool: [],
-  acronymPool: [],
 
-  // exam
+  // exam / port quiz
   quiz: [],
   index: 0,
   correctCount: 0,
@@ -42,7 +47,6 @@ const state = {
   deck: [],
   fIndex: 0,
   knownCount: 0,
-  definitionFirst: false,
   fResults: [],
   revealed: false,
 };
@@ -61,7 +65,12 @@ const els = {
   homeLoading: document.getElementById("home-loading"),
   modeExam: document.getElementById("mode-exam"),
   modeExamFlash: document.getElementById("mode-exam-flash"),
-  modeAcronymFlash: document.getElementById("mode-acronym-flash"),
+  modePorts: document.getElementById("mode-ports"),
+
+  // ports hub
+  portsHub: document.getElementById("ports-hub"),
+  portsFlashBtn: document.getElementById("ports-flash-btn"),
+  portsQuizBtn: document.getElementById("ports-quiz-btn"),
 
   // session stats
   sessionStats: document.getElementById("session-stats"),
@@ -97,8 +106,6 @@ const els = {
   flashSetupLead: document.getElementById("flash-setup-lead"),
   deckSize: document.getElementById("deck-size"),
   deckSizeValue: document.getElementById("deck-size-value"),
-  flipControl: document.getElementById("flip-control"),
-  flipDirection: document.getElementById("flip-direction"),
   flashStartBtn: document.getElementById("flash-start-btn"),
   flashLoadingMsg: document.getElementById("flash-loading-msg"),
 
@@ -169,6 +176,7 @@ function escapeHtml(text) {
 
 function show(screen) {
   const extra = [
+    document.getElementById("ports-hub"),
     document.getElementById("pbq-hub"),
     document.getElementById("pbq-lesson"),
     document.getElementById("pbq-setup"),
@@ -218,19 +226,6 @@ async function loadQuestions() {
   }
 }
 
-async function loadAcronyms() {
-  if (state.acronymPool.length) return true;
-  try {
-    const res = await fetch("data/acronyms.json", { cache: "no-store" });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    state.acronymPool = await res.json();
-    return true;
-  } catch (err) {
-    console.error(err);
-    return false;
-  }
-}
-
 /* --------------------------- mode routing ------------------------- */
 
 function chooseMode(mode) {
@@ -238,7 +233,7 @@ function chooseMode(mode) {
   if (mode === MODE.EXAM) {
     openExamSetup();
   } else {
-    openFlashSetup(mode);
+    openFlashSetup();
   }
 }
 
@@ -246,37 +241,19 @@ function openExamSetup() {
   show(els.examSetup);
 }
 
-async function openFlashSetup(mode) {
-  const isAcronym = mode === MODE.ACRONYM_FLASH;
+function openPortsHub() {
+  state.mode = null;
+  els.sessionStats.classList.add("hidden");
+  show(els.portsHub);
+}
 
-  // Acronym mode needs its deck loaded; exam-flash reuses the question pool.
-  els.flashStartBtn.disabled = true;
-  if (isAcronym) {
-    els.flashLoadingMsg.textContent = "Loading acronym deck…";
-    const ok = await loadAcronyms();
-    if (!ok) {
-      els.flashLoadingMsg.textContent = "Could not load acronyms.json.";
-      return;
-    }
-  }
+function openFlashSetup() {
+  const total = state.questionPool.length;
 
-  const pool = isAcronym ? state.acronymPool : state.questionPool;
-  const total = pool.length;
-
-  if (isAcronym) {
-    els.flashSetupTitle.textContent = "Acronym flashcards";
-    els.flashSetupLead.innerHTML =
-      `Drawing from the official CompTIA SY0-701 acronym list of ` +
-      `<strong>${total}</strong> acronyms. Flip each card, then grade yourself.`;
-    els.flipControl.classList.remove("hidden");
-  } else {
-    els.flashSetupTitle.textContent = "Exam flashcards";
-    els.flashSetupLead.innerHTML =
-      `Drawing from the pool of <strong>${total.toLocaleString()}</strong> ` +
-      `SY0-701 questions. Read the question, recall the answer, then reveal and grade yourself.`;
-    els.flipControl.classList.add("hidden");
-    els.flipDirection.checked = false;
-  }
+  els.flashSetupTitle.textContent = "Exam flashcards";
+  els.flashSetupLead.innerHTML =
+    `Drawing from the pool of <strong>${total.toLocaleString()}</strong> ` +
+    `SY0-701 questions. Read the question, recall the answer, then reveal and grade yourself.`;
 
   const defaultSize = Math.min(30, total);
   els.deckSize.min = Math.min(10, total);
@@ -284,7 +261,7 @@ async function openFlashSetup(mode) {
   els.deckSize.value = defaultSize;
   els.deckSizeValue.value = defaultSize;
   els.flashLoadingMsg.textContent = `${total.toLocaleString()} cards available.`;
-  els.flashStartBtn.disabled = false;
+  els.flashStartBtn.disabled = total === 0;
 
   show(els.flashSetup);
 }
@@ -293,8 +270,14 @@ async function openFlashSetup(mode) {
 
 function startExam() {
   const size = parseInt(els.quizSize.value, 10) || 75;
+  state.mode = MODE.EXAM;
   state.shuffleOptions = els.shuffleOpts.checked;
-  state.quiz = pickRandom(state.questionPool, size).map((q) => prepareQuestion(q));
+  beginQuiz(pickRandom(state.questionPool, size).map((q) => prepareQuestion(q)));
+}
+
+/* Shared kickoff for the practice exam and the port quiz. */
+function beginQuiz(preparedQuestions) {
+  state.quiz = preparedQuestions;
   state.index = 0;
   state.correctCount = 0;
   state.results = [];
@@ -305,6 +288,62 @@ function startExam() {
   updateExamStats();
   show(els.examScreen);
   renderQuestion();
+}
+
+/* Build one multiple-choice question per port, using a random template:
+   protocol -> port, port -> protocol, or description -> protocol. */
+function buildPortQuiz() {
+  const questions = [];
+
+  shuffle(PORTS).forEach((entry, i) => {
+    const others = shuffle(PORTS.filter((p) => p !== entry)).slice(0, 3);
+    const display = (p) =>
+      p.name && p.name !== p.acronym ? `${p.acronym} (${p.name})` : p.acronym;
+
+    const template = Math.floor(Math.random() * 3);
+    let questionText;
+    let correctText;
+    let distractors;
+
+    if (template === 0) {
+      questionText = `Which port(s) does ${display(entry)} use?`;
+      correctText = `${entry.ports} (${entry.proto})`;
+      distractors = others.map((p) => `${p.ports} (${p.proto})`);
+    } else if (template === 1) {
+      questionText = `Which protocol uses ${entry.proto} port${entry.portList.length > 1 ? "s" : ""} ${entry.ports}?`;
+      correctText = display(entry);
+      distractors = others.map(display);
+    } else {
+      questionText = `Which protocol is being described? “${entry.description}”`;
+      correctText = display(entry);
+      distractors = others.map(display);
+    }
+
+    const choices = shuffle([correctText, ...distractors]);
+    const letters = ["A", "B", "C", "D"];
+    const options = {};
+    choices.forEach((text, idx) => {
+      options[letters[idx]] = text;
+    });
+    const correctLetter = letters[choices.indexOf(correctText)];
+
+    questions.push({
+      id: `PORT-${entry.acronym}`,
+      number: i + 1,
+      question: questionText,
+      options,
+      correct: [correctLetter],
+      explanation: `${display(entry)} uses ${entry.proto} port${entry.portList.length > 1 ? "s" : ""} ${entry.ports}. ${entry.description}`,
+    });
+  });
+
+  return questions;
+}
+
+function startPortQuiz() {
+  state.mode = MODE.PORT_QUIZ;
+  state.shuffleOptions = false; // options are already randomized per question
+  beginQuiz(buildPortQuiz().map((q) => prepareQuestion(q)));
 }
 
 function prepareQuestion(q) {
@@ -337,7 +376,9 @@ function renderQuestion() {
   state.currentSelection = new Set();
   state.answered = false;
   els.qNumber.textContent = `Question ${state.index + 1} of ${state.quiz.length}`;
-  els.qSource.innerHTML = `<span class="domain-badge" data-domain="${q.domain || 0}">Section ${escapeHtml(domainLabel(q.domain))}</span>`;
+  els.qSource.innerHTML = q.domain
+    ? `<span class="domain-badge" data-domain="${q.domain}">Section ${escapeHtml(domainLabel(q.domain))}</span>`
+    : `<span class="domain-badge" data-domain="ports">Ports &amp; Protocols</span>`;
 
   const stem = q.question;
   if (q.isMulti && !/choose\s+(two|three|all)/i.test(stem)) {
@@ -559,14 +600,19 @@ function showExamResults() {
   const score = state.correctCount;
   const pct = total === 0 ? 0 : Math.round((score / total) * 100);
 
-  els.resultsEyebrow.textContent = state.mode === "pbqTest" ? "PBQ test complete" : "Exam complete";
+  els.resultsEyebrow.textContent =
+    state.mode === MODE.PORT_QUIZ ? "Port quiz complete" : "Exam complete";
   els.resultsHeadline.innerHTML = `You got <span>${score}</span> of <span>${total}</span> correct.`;
   els.resultPercent.textContent = `${pct}%`;
   els.resultVerdict.textContent = examVerdict(pct);
   els.reviewLabel.textContent = "Review missed questions";
 
   animateBar(pct, 70);
-  renderSectionBreakdown();
+  if (state.mode === MODE.PORT_QUIZ) {
+    hideSectionBreakdown();
+  } else {
+    renderSectionBreakdown();
+  }
 
   const missed = state.results.filter((r) => !r.isCorrect);
   els.missedCount.textContent = missed.length;
@@ -592,7 +638,11 @@ function showExamResults() {
       <div class="missed-header">
         <span class="missed-index">${idx + 1}</span>
         <div class="missed-question">
-          <span class="domain-badge" data-domain="${m.question.domain || 0}">Section ${escapeHtml(domainLabel(m.question.domain))}</span>
+          ${
+            m.question.domain
+              ? `<span class="domain-badge" data-domain="${m.question.domain}">Section ${escapeHtml(domainLabel(m.question.domain))}</span>`
+              : ""
+          }
           <h4>${escapeHtml(m.question.question)}</h4>
         </div>
       </div>
@@ -629,14 +679,17 @@ function examVerdict(pct) {
 
 function startFlash() {
   const size = parseInt(els.deckSize.value, 10) || 30;
-  state.definitionFirst = els.flipDirection.checked;
+  state.mode = MODE.EXAM_FLASH;
+  beginFlash(pickRandom(state.questionPool, size).map((q) => ({ kind: "exam", data: q })));
+}
 
-  if (state.mode === MODE.ACRONYM_FLASH) {
-    state.deck = pickRandom(state.acronymPool, size).map((c) => ({ kind: "acronym", data: c }));
-  } else {
-    state.deck = pickRandom(state.questionPool, size).map((q) => ({ kind: "exam", data: q }));
-  }
+function startPortFlash() {
+  state.mode = MODE.PORT_FLASH;
+  beginFlash(shuffle(PORTS).map((p) => ({ kind: "port", data: p })));
+}
 
+function beginFlash(deck) {
+  state.deck = deck;
   state.fIndex = 0;
   state.knownCount = 0;
   state.fResults = [];
@@ -662,30 +715,34 @@ function renderCard() {
   els.flashcardHint.textContent = "Tap the card or press Space to flip";
 
   // Both faces are populated up front; the flip itself reveals the answer.
-  if (card.kind === "acronym") {
-    buildAcronymCard(card.data);
+  if (card.kind === "port") {
+    buildPortCard(card.data);
   } else {
     buildExamCard(card.data);
   }
 }
 
-function buildAcronymCard(c) {
-  // FRONT — the prompt
-  const front = state.definitionFirst ? c.definition : c.term;
-  els.flashcardKicker.textContent = state.definitionFirst ? "Definition" : "Acronym";
-  els.cPromptLabel.textContent = state.definitionFirst ? "Recall the acronym" : "Recall the meaning";
-  els.flashcardFront.textContent = front;
-  els.flashcardFront.classList.toggle("is-definition", state.definitionFirst);
-  els.flashcardOptions.classList.add("hidden");
-  els.flashcardOptions.innerHTML = "";
+function buildPortCard(p) {
+  // FRONT — the protocol; recall its port number(s) and TCP vs. UDP.
+  els.flashcardKicker.textContent = "Protocol";
+  els.cPromptLabel.textContent = "Recall the port & TCP/UDP";
+  els.flashcardFront.textContent = p.acronym;
+  els.flashcardFront.classList.remove("is-definition");
+  els.flashcardOptions.innerHTML =
+    p.name && p.name !== p.acronym
+      ? `<li class="fc-port-name">${escapeHtml(p.name)}</li>`
+      : "";
+  els.flashcardOptions.classList.toggle("hidden", !els.flashcardOptions.innerHTML);
 
-  // BACK — the answer
-  els.flashcardBackKicker.textContent = "Answer";
-  els.flashcardBackTitle.innerHTML = `<span class="fc-back-term">${escapeHtml(c.term)}</span>` +
-    (c.full ? ` — ${escapeHtml(c.full)}` : "");
+  // BACK — the port number(s), transport, and description.
+  els.flashcardBackKicker.textContent =
+    p.portList.length > 1 ? "Ports" : "Port";
+  els.flashcardBackTitle.innerHTML =
+    `<span class="fc-back-term">${escapeHtml(p.ports)}</span>` +
+    ` <span class="port-proto ${p.proto.toLowerCase()}">${escapeHtml(p.proto)}</span>`;
   els.flashcardBackOptions.classList.add("hidden");
   els.flashcardBackOptions.innerHTML = "";
-  els.flashcardBackBody.textContent = c.definition || "";
+  els.flashcardBackBody.textContent = p.description;
 }
 
 function buildExamCard(q) {
@@ -779,11 +836,11 @@ function showFlashResults() {
   const total = state.fResults.length;
   const score = state.knownCount;
   const pct = total === 0 ? 0 : Math.round((score / total) * 100);
-  const isAcronym = state.mode === MODE.ACRONYM_FLASH;
+  const isPorts = state.mode === MODE.PORT_FLASH;
 
   els.resultsEyebrow.textContent = "Session complete";
-  els.resultsHeadline.innerHTML = isAcronym
-    ? `You knew <span>${score}</span> of <span>${total}</span> acronyms.`
+  els.resultsHeadline.innerHTML = isPorts
+    ? `You knew <span>${score}</span> of <span>${total}</span> ports.`
     : `You knew <span>${score}</span> of <span>${total}</span> questions.`;
   els.resultPercent.textContent = `${pct}%`;
   els.resultVerdict.textContent = flashVerdict(pct);
@@ -798,19 +855,19 @@ function showFlashResults() {
   missed.forEach((m, idx) => {
     const item = document.createElement("article");
     item.className = "missed-item";
-    if (m.card.kind === "acronym") {
-      const c = m.card.data;
+    if (m.card.kind === "port") {
+      const p = m.card.data;
       item.innerHTML = `
         <div class="missed-header">
           <span class="missed-index">${idx + 1}</span>
           <div>
-            <span class="missed-term">${escapeHtml(c.term)}</span>
-            <div class="missed-full">${escapeHtml(c.full)}</div>
+            <span class="missed-term">${escapeHtml(p.acronym)} — ${escapeHtml(p.ports)} <span class="port-proto ${p.proto.toLowerCase()}">${escapeHtml(p.proto)}</span></span>
+            <div class="missed-full">${escapeHtml(p.name)}</div>
           </div>
         </div>
         <div class="why">
-          <div class="why-label">Definition</div>
-          <div class="why-text">${escapeHtml(c.definition)}</div>
+          <div class="why-label">Remember</div>
+          <div class="why-text">${escapeHtml(p.description)}</div>
         </div>
       `;
     } else {
@@ -867,8 +924,12 @@ function restartCurrentMode() {
     openPbqSetup();
   } else if (state.mode === MODE.EXAM) {
     openExamSetup();
+  } else if (state.mode === MODE.PORT_QUIZ) {
+    startPortQuiz();
+  } else if (state.mode === MODE.PORT_FLASH) {
+    startPortFlash();
   } else {
-    openFlashSetup(state.mode);
+    openFlashSetup();
   }
 }
 
@@ -987,7 +1048,9 @@ function init() {
   // Mode selection
   els.modeExam.addEventListener("click", () => chooseMode(MODE.EXAM));
   els.modeExamFlash.addEventListener("click", () => chooseMode(MODE.EXAM_FLASH));
-  els.modeAcronymFlash.addEventListener("click", () => chooseMode(MODE.ACRONYM_FLASH));
+  els.modePorts.addEventListener("click", openPortsHub);
+  els.portsFlashBtn.addEventListener("click", startPortFlash);
+  els.portsQuizBtn.addEventListener("click", startPortQuiz);
 
   // Back-to-home affordances
   els.brandHome.addEventListener("click", goHome);

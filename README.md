@@ -40,6 +40,7 @@ Stop the server with `Ctrl+C`.
 | `build_questions.py` | One-time parser that reads the SY0-701 PDF and writes `data/questions.json` (already done — re-run only if you swap PDFs). |
 | `classify_domains.py` | Tags every question in `data/questions.json` with its official SY0-701 exam section (1.0–5.0) using weighted keyword rules plus hand-reviewed overrides. Re-run after re-parsing the PDF. |
 | `data/questions.json` | The parsed question bank: stem, options, correct letter(s), exam section, and the best community explanation. |
+| `static/ports-data.js` | The 17 essential SY0-701 ports & protocols that power the Ports & Protocols flashcards and quiz. |
 | `index.html` + `static/styles.css` + `static/quiz.js` | The single-page quiz UI. All randomization, scoring, and feedback runs in the browser. |
 | `run.py` | A 30-line wrapper around Python's built-in `http.server` that serves the site and opens your browser. |
 

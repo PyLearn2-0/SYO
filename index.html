@@ -25,8 +25,8 @@
       <section id="home-screen" class="card home">
         <h1>How do you want to study?</h1>
         <p class="lead">
-          Pick a mode below. Everything is drawn from the same SY0-701 question
-          pool and the official CompTIA acronym list.
+          Pick a mode below. Everything is built for the SY0-701 exam — from
+          the full question pool to the must-know ports.
         </p>
         <div class="mode-grid">
           <button class="mode-btn" id="mode-exam" type="button">
@@ -49,12 +49,12 @@
             <span class="mode-arrow" aria-hidden="true">→</span>
           </button>
 
-          <button class="mode-btn" id="mode-acronym-flash" type="button">
-            <span class="mode-eyebrow">Memorize fast</span>
-            <span class="mode-title">Acronym Flashcards</span>
+          <button class="mode-btn" id="mode-ports" type="button">
+            <span class="mode-eyebrow">Know your ports</span>
+            <span class="mode-title">Ports &amp; Protocols</span>
             <span class="mode-desc">
-              The full official CompTIA SY0-701 acronym list. Flip each card to
-              see the meaning and a quick definition.
+              The 17 essential ports for SY0-701 — drill them as flashcards or
+              prove them in a quick quiz.
             </span>
             <span class="mode-arrow" aria-hidden="true">→</span>
           </button>
@@ -144,7 +144,37 @@
         </div>
       </section>
 
-      <!-- Flashcards: setup (shared by exam + acronym decks) -->
+      <!-- Ports & Protocols: choose flashcards or quiz -->
+      <section id="ports-hub" class="card setup hidden">
+        <button class="back-link" data-go-home type="button">‹ Back to modes</button>
+        <h1>Ports &amp; Protocols</h1>
+        <p class="lead">
+          The <strong>17 ports</strong> you must know cold for SY0-701 — from
+          FTP on 20/21 to RDP on 3389. Pick how you want to drill them.
+        </p>
+        <div class="mode-grid ports-choice">
+          <button class="mode-btn" id="ports-flash-btn" type="button">
+            <span class="mode-eyebrow">Memorize</span>
+            <span class="mode-title">Flashcards</span>
+            <span class="mode-desc">
+              See the protocol, recall its port number and whether it runs on
+              TCP or UDP, then flip to check yourself.
+            </span>
+            <span class="mode-arrow" aria-hidden="true">→</span>
+          </button>
+          <button class="mode-btn" id="ports-quiz-btn" type="button">
+            <span class="mode-eyebrow">Prove it</span>
+            <span class="mode-title">Quiz</span>
+            <span class="mode-desc">
+              17 randomized multiple-choice questions — one per port — with
+              instant feedback and a review at the end.
+            </span>
+            <span class="mode-arrow" aria-hidden="true">→</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Flashcards: setup (exam question decks) -->
       <section id="flash-setup" class="card setup hidden">
         <button class="back-link" data-go-home type="button">‹ Back to modes</button>
         <h1 id="flash-setup-title">Build your flashcard set</h1>
@@ -156,15 +186,6 @@
             <input type="range" id="deck-size" min="10" max="330" step="1" value="30" />
             <output id="deck-size-value">30</output>
           </div>
-        </div>
-
-        <div class="control" id="flip-control">
-          <label class="checkbox">
-            <input type="checkbox" id="flip-direction" />
-            <span>Show the definition first
-              <small class="hint">(flip it around: read the meaning, recall the acronym)</small>
-            </span>
-          </label>
         </div>
 
         <button id="flash-start-btn" class="primary" disabled>Start Studying</button>
@@ -369,7 +390,7 @@
     </main>
 
     <footer class="footer">
-      <span>Built for SY0-701 · Questions from the public community pool · Official CompTIA acronym list · v3</span>
+      <span>Built for SY0-701 · Questions from the public community pool · v3</span>
     </footer>
 
     <div id="modal-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -386,6 +407,7 @@
       </div>
     </div>
 
+    <script src="static/ports-data.js"></script>
     <script src="static/app.js"></script>
     <script src="static/pbq-data.js"></script>
     <script src="static/pbq-test-data.js"></script>

@@ -236,10 +236,60 @@ button.ghost:hover {
 .question-meta {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
   font-size: 13px;
   color: var(--text-muted);
   margin-bottom: 14px;
+}
+
+/* ------------------- exam-section (domain) badges ------------------ */
+/* One tinted hue per SY0-701 domain; text stays high-lightness for
+   contrast against the dark tinted chip backgrounds. */
+.domain-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+  white-space: normal;
+  background: var(--surface-2);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.domain-badge[data-domain="1"] {
+  background: oklch(0.28 0.05 280);
+  color: oklch(0.85 0.09 280);
+  border-color: oklch(0.65 0.16 280 / 0.35);
+}
+
+.domain-badge[data-domain="2"] {
+  background: oklch(0.28 0.06 25);
+  color: oklch(0.84 0.1 25);
+  border-color: oklch(0.65 0.19 25 / 0.35);
+}
+
+.domain-badge[data-domain="3"] {
+  background: oklch(0.28 0.05 220);
+  color: oklch(0.85 0.09 220);
+  border-color: oklch(0.65 0.14 220 / 0.35);
+}
+
+.domain-badge[data-domain="4"] {
+  background: oklch(0.28 0.05 150);
+  color: oklch(0.85 0.1 150);
+  border-color: oklch(0.65 0.15 150 / 0.35);
+}
+
+.domain-badge[data-domain="5"] {
+  background: oklch(0.3 0.05 75);
+  color: oklch(0.87 0.1 80);
+  border-color: oklch(0.7 0.13 75 / 0.35);
 }
 
 .question-text {
@@ -582,6 +632,118 @@ button.ghost:hover {
   font-weight: 700;
   color: var(--text);
   font-variant-numeric: tabular-nums;
+}
+
+/* -------------------- per-section results breakdown ---------------- */
+.section-breakdown {
+  margin: 0 0 28px;
+  padding: 20px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.section-breakdown-title {
+  margin: 0 0 6px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.section-focus {
+  margin: 0 0 16px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.section-focus strong {
+  color: var(--warning);
+  font-weight: 600;
+}
+
+.section-breakdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 14px;
+}
+
+.section-row-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 7px;
+}
+
+.section-row-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text);
+  flex: 1;
+  line-height: 1.4;
+}
+
+.section-row-pct {
+  font-size: 13px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.section-row-pct.good {
+  color: var(--success);
+}
+
+.section-row-pct.bad {
+  color: var(--error);
+}
+
+.section-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--bg-soft);
+  overflow: hidden;
+  margin-bottom: 7px;
+}
+
+.section-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 500ms var(--ease);
+}
+
+.section-bar-fill.good {
+  background: var(--success);
+}
+
+.section-bar-fill.bad {
+  background: var(--error);
+}
+
+.section-row-counts {
+  display: flex;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.count-correct {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.count-wrong {
+  color: var(--error);
+  font-weight: 600;
+}
+
+.missed-question {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
 }
 
 .review {
@@ -1265,6 +1427,15 @@ button.grade-wrong:not(:disabled):hover {
   }
   .question-text {
     font-size: 17px;
+  }
+  /* On narrow screens the section badge drops below the question counter. */
+  .question-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .section-breakdown {
+    padding: 16px 14px;
   }
   .score-row {
     flex-direction: column;

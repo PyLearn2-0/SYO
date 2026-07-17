@@ -10,6 +10,20 @@
 
 const MODE = { EXAM: "exam", EXAM_FLASH: "examFlash", ACRONYM_FLASH: "acronymFlash" };
 
+/* Official SY0-701 exam domains. Every question carries a "domain" (1-5). */
+const DOMAINS = {
+  1: { num: "1.0", name: "General Security Concepts", weight: "12%" },
+  2: { num: "2.0", name: "Threats, Vulnerabilities, and Mitigations", weight: "22%" },
+  3: { num: "3.0", name: "Security Architecture", weight: "18%" },
+  4: { num: "4.0", name: "Security Operations", weight: "28%" },
+  5: { num: "5.0", name: "Security Program Management and Oversight", weight: "20%" },
+};
+
+function domainLabel(domain) {
+  const d = DOMAINS[domain];
+  return d ? `${d.num} ${d.name}` : "Uncategorized";
+}
+
 const state = {
   mode: null,
   questionPool: [],
@@ -308,6 +322,7 @@ function prepareQuestion(q) {
   return {
     id: q.id,
     topic: q.topic,
+    domain: q.domain,
     number: q.number,
     question: q.question,
     options: finalOptions,
@@ -322,7 +337,7 @@ function renderQuestion() {
   state.currentSelection = new Set();
   state.answered = false;
   els.qNumber.textContent = `Question ${state.index + 1} of ${state.quiz.length}`;
-  els.qSource.textContent = `Topic ${q.topic} · #${q.number}`;
+  els.qSource.innerHTML = `<span class="domain-badge" data-domain="${q.domain || 0}">Section ${escapeHtml(domainLabel(q.domain))}</span>`;
 
   const stem = q.question;
   if (q.isMulti && !/choose\s+(two|three|all)/i.test(stem)) {
@@ -465,6 +480,80 @@ function letterText(q, letter) {
   return opt ? opt.text : "";
 }
 
+/* Per-section correct/wrong breakdown shown on the exam results screen. */
+function renderSectionBreakdown() {
+  const container = document.getElementById("section-breakdown");
+  const list = document.getElementById("section-breakdown-list");
+  const focus = document.getElementById("section-focus");
+  if (!container || !list) return;
+
+  const tally = {};
+  for (const r of state.results) {
+    const d = r.question.domain || 0;
+    if (!tally[d]) tally[d] = { correct: 0, wrong: 0 };
+    if (r.isCorrect) tally[d].correct += 1;
+    else tally[d].wrong += 1;
+  }
+
+  const seen = Object.keys(tally);
+  if (seen.length === 0) {
+    container.classList.add("hidden");
+    return;
+  }
+
+  list.innerHTML = "";
+  let weakest = null;
+
+  for (const d of [1, 2, 3, 4, 5]) {
+    const t = tally[d];
+    if (!t) continue;
+    const total = t.correct + t.wrong;
+    const pct = Math.round((t.correct / total) * 100);
+    if (weakest === null || pct < weakest.pct) {
+      weakest = { domain: d, pct, total };
+    }
+
+    const row = document.createElement("div");
+    row.className = "section-row";
+    row.innerHTML = `
+      <div class="section-row-head">
+        <span class="domain-badge" data-domain="${d}">${escapeHtml(DOMAINS[d].num)}</span>
+        <span class="section-row-name">${escapeHtml(DOMAINS[d].name)}</span>
+        <span class="section-row-pct ${pct >= 70 ? "good" : "bad"}">${pct}%</span>
+      </div>
+      <div class="section-bar" role="img"
+        aria-label="${escapeHtml(DOMAINS[d].name)}: ${t.correct} correct, ${t.wrong} wrong">
+        <div class="section-bar-fill ${pct >= 70 ? "good" : "bad"}" style="width: ${pct}%"></div>
+      </div>
+      <div class="section-row-counts">
+        <span class="count-correct">${t.correct} correct</span>
+        <span class="count-sep" aria-hidden="true">·</span>
+        <span class="count-wrong">${t.wrong} wrong</span>
+        <span class="count-total">of ${total} answered</span>
+      </div>
+    `;
+    list.appendChild(row);
+  }
+
+  if (focus) {
+    if (weakest && weakest.pct < 100) {
+      focus.innerHTML =
+        `Study priority: <strong>Section ${escapeHtml(domainLabel(weakest.domain))}</strong>` +
+        ` — ${weakest.pct}% on ${weakest.total} question${weakest.total === 1 ? "" : "s"}.`;
+      focus.classList.remove("hidden");
+    } else {
+      focus.classList.add("hidden");
+    }
+  }
+
+  container.classList.remove("hidden");
+}
+
+function hideSectionBreakdown() {
+  const container = document.getElementById("section-breakdown");
+  if (container) container.classList.add("hidden");
+}
+
 function showExamResults() {
   const total = state.quiz.length;
   const score = state.correctCount;
@@ -477,6 +566,7 @@ function showExamResults() {
   els.reviewLabel.textContent = "Review missed questions";
 
   animateBar(pct, 70);
+  renderSectionBreakdown();
 
   const missed = state.results.filter((r) => !r.isCorrect);
   els.missedCount.textContent = missed.length;
@@ -501,7 +591,10 @@ function showExamResults() {
     item.innerHTML = `
       <div class="missed-header">
         <span class="missed-index">${idx + 1}</span>
-        <h4>${escapeHtml(m.question.question)}</h4>
+        <div class="missed-question">
+          <span class="domain-badge" data-domain="${m.question.domain || 0}">Section ${escapeHtml(domainLabel(m.question.domain))}</span>
+          <h4>${escapeHtml(m.question.question)}</h4>
+        </div>
       </div>
       <div class="answer-grid">
         <div class="answer-cell wrong-cell">
@@ -599,7 +692,7 @@ function buildExamCard(q) {
   const letters = Object.keys(q.options).sort();
 
   // FRONT — the question and its options (no highlighting yet)
-  els.flashcardKicker.textContent = `Question · Topic ${q.topic} · #${q.number}`;
+  els.flashcardKicker.textContent = `Question · Section ${domainLabel(q.domain)}`;
   els.cPromptLabel.textContent = "Recall the answer";
   els.flashcardFront.textContent = q.question;
   els.flashcardFront.classList.add("is-definition");
@@ -697,6 +790,7 @@ function showFlashResults() {
   els.reviewLabel.textContent = "Review the ones you missed";
 
   animateBar(pct, 80);
+  hideSectionBreakdown();
 
   const missed = state.fResults.filter((r) => !r.known);
   els.missedCount.textContent = missed.length;

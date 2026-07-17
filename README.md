@@ -38,7 +38,8 @@ Stop the server with `Ctrl+C`.
 | Piece | Purpose |
 | --- | --- |
 | `build_questions.py` | One-time parser that reads the SY0-701 PDF and writes `data/questions.json` (already done — re-run only if you swap PDFs). |
-| `data/questions.json` | The parsed question bank: stem, options, correct letter(s), and the best community explanation. |
+| `classify_domains.py` | Tags every question in `data/questions.json` with its official SY0-701 exam section (1.0–5.0) using weighted keyword rules plus hand-reviewed overrides. Re-run after re-parsing the PDF. |
+| `data/questions.json` | The parsed question bank: stem, options, correct letter(s), exam section, and the best community explanation. |
 | `index.html` + `static/styles.css` + `static/quiz.js` | The single-page quiz UI. All randomization, scoring, and feedback runs in the browser. |
 | `run.py` | A 30-line wrapper around Python's built-in `http.server` that serves the site and opens your browser. |
 
@@ -53,8 +54,14 @@ Stop the server with `Ctrl+C`.
   highest-rated community comment for that question.
 - **Live score** — the top bar tracks `answered / total`, `correct`, and your
   running percentage as you go.
+- **Section badges** — every question shows which official SY0-701 exam
+  section it pertains to (e.g. *2.0 Threats, Vulnerabilities, and
+  Mitigations*) in the top-right corner of the question card.
 - **Review at the end** — the results screen lists every question you missed
   with both your answer and the correct one, plus the explanation.
+- **Section breakdown** — the results screen also shows how many questions
+  you got right and wrong in each exam section, plus a study-priority hint
+  pointing at your weakest section.
 
 ## Re-parsing the PDF (optional)
 

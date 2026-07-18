@@ -346,6 +346,38 @@ button.ghost:hover {
   }
 }
 
+/* Exhibit data (logs, tables, command output) shown with a question.
+   Restored from the source PDF's embedded screenshots. */
+.q-context {
+  margin: -8px 0 24px;
+  padding: 14px 16px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  font-family: ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas, monospace;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--text);
+  overflow-x: auto;
+  white-space: pre;
+  tab-size: 4;
+}
+
+.missed-question .q-context {
+  margin: 10px 0 0;
+  font-size: 12px;
+}
+
+.q-context-card {
+  margin: 14px 0 0;
+  align-self: stretch;
+  text-align: left;
+  font-size: 11.5px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
 .question-text {
   font-size: 19px;
   line-height: 1.55;

@@ -92,6 +92,7 @@ const els = {
   qNumber: document.getElementById("q-number"),
   qSource: document.getElementById("q-source"),
   qText: document.getElementById("q-text"),
+  qContext: document.getElementById("q-context"),
   qOptions: document.getElementById("q-options"),
   qFeedback: document.getElementById("q-feedback"),
   feedbackIcon: document.getElementById("feedback-icon"),
@@ -115,6 +116,7 @@ const els = {
   flashcard: document.getElementById("flashcard"),
   flashcardKicker: document.getElementById("flashcard-kicker"),
   flashcardFront: document.getElementById("flashcard-front"),
+  flashcardContext: document.getElementById("flashcard-context"),
   flashcardOptions: document.getElementById("flashcard-options"),
   flashcardHint: document.getElementById("flashcard-hint"),
   flashcardBackKicker: document.getElementById("flashcard-back-kicker"),
@@ -364,6 +366,7 @@ function prepareQuestion(q) {
     domain: q.domain,
     number: q.number,
     question: q.question,
+    context: q.context || "",
     options: finalOptions,
     correct: correctLetters,
     isMulti: correctLetters.length > 1,
@@ -386,6 +389,9 @@ function renderQuestion() {
   } else {
     els.qText.textContent = stem;
   }
+
+  els.qContext.textContent = q.context || "";
+  els.qContext.classList.toggle("hidden", !q.context);
 
   els.qOptions.innerHTML = "";
   q.options.forEach((opt) => {
@@ -644,6 +650,7 @@ function showExamResults() {
               : ""
           }
           <h4>${escapeHtml(m.question.question)}</h4>
+          ${m.question.context ? `<pre class="q-context">${escapeHtml(m.question.context)}</pre>` : ""}
         </div>
       </div>
       <div class="answer-grid">
@@ -728,6 +735,8 @@ function buildPortCard(p) {
   els.cPromptLabel.textContent = "Recall the port & TCP/UDP";
   els.flashcardFront.textContent = p.acronym;
   els.flashcardFront.classList.remove("is-definition");
+  els.flashcardContext.textContent = "";
+  els.flashcardContext.classList.add("hidden");
   els.flashcardOptions.innerHTML =
     p.name && p.name !== p.acronym
       ? `<li class="fc-port-name">${escapeHtml(p.name)}</li>`
@@ -753,6 +762,8 @@ function buildExamCard(q) {
   els.cPromptLabel.textContent = "Recall the answer";
   els.flashcardFront.textContent = q.question;
   els.flashcardFront.classList.add("is-definition");
+  els.flashcardContext.textContent = q.context || "";
+  els.flashcardContext.classList.toggle("hidden", !q.context);
   els.flashcardOptions.innerHTML = "";
   letters.forEach((letter) => {
     const li = document.createElement("li");
@@ -878,7 +889,10 @@ function showFlashResults() {
       item.innerHTML = `
         <div class="missed-header">
           <span class="missed-index">${idx + 1}</span>
-          <h4>${escapeHtml(q.question)}</h4>
+          <div class="missed-question">
+            <h4>${escapeHtml(q.question)}</h4>
+            ${q.context ? `<pre class="q-context">${escapeHtml(q.context)}</pre>` : ""}
+          </div>
         </div>
         <div class="answer-grid one">
           <div class="answer-cell right-cell">
